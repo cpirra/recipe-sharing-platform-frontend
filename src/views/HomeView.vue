@@ -1,9 +1,15 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import { ref } from 'vue'
+
+
+
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <!-- <TheWelcome /> -->
+    <!-- Emits Component
+    <Emits :value="value" @customEvent="handleCustomEvent" /> -->
+    <h1>This is root component</h1>
   </main>
 </template>
