@@ -1,23 +1,26 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { useUserStore } from './stores/userStore'
+<script>
 
+export default {
+  name: "App",
+};
+//import { useUserStore } from './stores/userStore'
+
+/*
 const userStore = useUserStore()
 
 const logout = () => {
   userStore.logout()
 }
+*/
 </script>
 
 <template>
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-    <RouterLink to="/profile">Profile</RouterLink>
-    <RouterLink v-if="!userStore.user" to="/login">Login</RouterLink>
-    <button v-else @click="logout" class="logout-button">Logout</button>
-  </nav>
-  <RouterView />
+  <div class="main">
+    <RouterView/>
+  </div>
+  
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
