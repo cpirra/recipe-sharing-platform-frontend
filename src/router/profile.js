@@ -1,6 +1,6 @@
 export default {
     path: '/profile',
-    component: () => import('../views/ProfileView.vue'),
+    component: () => import('../views/general/ProfileView.vue'),
     children: [
       /*
       {
@@ -11,7 +11,7 @@ export default {
       {
         path: ':id',
         name: 'profile-edit',
-        component: () => import('../views/profile/Edit.vue')
+        component: () => import('../views/profile/ProfileEdit.vue')
       },
     ]
   }

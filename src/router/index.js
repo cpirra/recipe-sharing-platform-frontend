@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/general/HomeView.vue'
 
 // Import routes from other modules
-import albumsRoutes from './albums'
+import albumsRoutes from './recipe'
 import authorizationRoutes from './authorization'
 import profileRoutes from './profile'
 import DefaultLayout from '../layouts/DefaultLayout.vue'
+import FullLayout from '@/layouts/FullLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,13 +28,21 @@ const router = createRouter({
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import('../views/AboutView.vue'),
+          component: () => import('../views/general/AboutView.vue'),
         },
         // Spread the imported routes
         albumsRoutes,
-        ...authorizationRoutes,
         profileRoutes,
-      ]
+      ],
+    },
+    {
+      path: '/auth',
+      name: 'Auth',
+      component: FullLayout,
+      children: [
+        // Spread the imported authorization routes
+        ...authorizationRoutes,
+      ],
     },
     
   ]
