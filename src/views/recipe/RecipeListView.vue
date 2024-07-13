@@ -1,39 +1,43 @@
 <template>
-  <div class="recipe-list flex flex-wrap gap-4">
-    <RecipeCard
-      v-for="(recipe, index) in recipes"
-      :key="index"
-      :image="recipe.image"
-      :category="recipe.category"
-      :title="recipe.title"
-      :ratings="recipe.ratings"
-    />
+  <div>
+    <div class="recipe-list flex flex-wrap gap-4">
+      <RecipeCard
+        v-for="recipe in recipes"
+        :key="recipe.title"
+        :image="recipe.image"
+        :category="recipe.category"
+        :title="recipe.title"
+        :ratings="recipe.ratings"
+      />
+    </div>
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, onMounted } from 'vue'
+<script setup>
+import { onMounted, ref } from 'vue'
 import RecipeCard from '../../components/Recipe/RecipeCard.vue'
-import recipesData from '../../data/recipeCard.json'
 
-export default defineComponent({
-  name: 'RecipeListView',
-  components: {
-    RecipeCard
-  },
-  setup() {
-    const recipes = ref([])
+const recipes = ref([])
 
-    onMounted(() => {
-      recipes.value = recipesData
-    })
-
-    return { recipes }
+const loadRecipes = async () => {
+  try {
+    const response = await fetch('/data/recipeCard.json')
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const data = await response.json()
+    recipes.value = data
+  } catch (error) {
+    console.error('Error fetching recipes:', error)
   }
+}
+
+onMounted(() => {
+  loadRecipes()
 })
 </script>
 
-<style>
+<style scoped>
 .recipe-list {
   padding: 16px;
 }

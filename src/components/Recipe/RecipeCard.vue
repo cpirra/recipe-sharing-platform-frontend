@@ -47,34 +47,12 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, toRefs } from 'vue'
-
-export default defineComponent({
-  name: 'RecipeCard',
-  props: {
-    image: {
-      type: String,
-      required: true
-    },
-    category: {
-      type: String,
-      required: true
-    },
-    title: {
-      type: String,
-      required: true
-    },
-    ratings: {
-      type: Number,
-      required: true
-    }
-  },
-  setup(props) {
-    const { image, category, title, ratings } = toRefs(props)
-    // eslint-disable-next-line vue/no-dupe-keys
-    return { image, category, title, ratings }
-  }
+<script setup>
+defineProps({
+  image: String,
+  category: String,
+  title: String,
+  ratings: Number
 })
 </script>
 
