@@ -1,0 +1,20 @@
+[
+  {
+    "image": "path/to/chicken-noodle-salad.jpg",
+    "category": "Spaghetti Pasta Salad Recipes",
+    "title": "Chicken Noodle Salad",
+    "ratings": 25
+  },
+  {
+    "image": "path/to/asian-lettuce-wraps.jpg",
+    "category": "Wraps and Rolls",
+    "title": "Asian Lettuce Wraps",
+    "ratings": 2864
+  },
+  {
+    "image": "path/to/ranch-chicken-tacos.jpg",
+    "category": "Mexican",
+    "title": "Ranch Chicken Tacos",
+    "ratings": 174
+  }
+]
