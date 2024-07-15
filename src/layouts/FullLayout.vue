@@ -1,7 +1,13 @@
+<script>
+export default{
+
+}
+</script>
 
 <template>
-    <div>
-        
+    <div> 
         <RouterView/>
     </div>
 </template>
+
+<style></style>
