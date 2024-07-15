@@ -1,393 +1,392 @@
 {
-    "recipes": [
-      {
-        "id": 1,
-        "title": "Spaghetti Carbonara",
-        "description": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
-        "type": "Meal",
-        "categories": ["Pasta", "Italian"],
-        "ingredients": [
-          "200g spaghetti",
-          "100g pancetta",
-          "2 large eggs",
-          "50g pecorino cheese",
-          "50g parmesan",
-          "2 cloves garlic",
-          "Salt",
-          "Black pepper"
-        ],
-        "cuisines": ["Italian"],
-        "author": {
-          "name": "John Doe",
-          "profile_url": "https://example.com/authors/johndoe"
-        },
-        "prep_time": "10 minutes",
-        "cook_time": "20 minutes",
-        "total_time": "30 minutes",
-        "difficulty": "Easy",
-        "servings": 2,
-        "instructions": [
-          "Boil the spaghetti.",
-          "Cook the pancetta.",
-          "Mix eggs and cheese.",
-          "Combine all ingredients and serve."
-        ],
-        "image_url": "https://example.com/images/spaghetti-carbonara.jpg",
-        "ratings": 4.5
+  "recipes": [
+    {
+      "id": 1,
+      "title": "Spaghetti Carbonara",
+      "description": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
+      "type": "Meal",
+      "categories": ["Pasta", "Italian"],
+      "ingredients": [
+        "200g spaghetti",
+        "100g pancetta",
+        "2 large eggs",
+        "50g pecorino cheese",
+        "50g parmesan",
+        "2 cloves garlic",
+        "Salt",
+        "Black pepper"
+      ],
+      "cuisines": ["Italian"],
+      "author": {
+        "name": "John Doe",
+        "profile_url": "https://example.com/authors/johndoe"
       },
-      {
-        "id": 2,
-        "title": "Chicken Curry",
-        "description": "A spicy and flavorful chicken curry with a rich gravy.",
-        "type": "Meal",
-        "categories": ["Curry", "Indian"],
-        "ingredients": [
-          "500g chicken",
-          "2 onions",
-          "3 tomatoes",
-          "4 cloves garlic",
-          "1 inch ginger",
-          "2 tsp curry powder",
-          "200ml coconut milk",
-          "Salt",
-          "Oil",
-          "Cilantro"
-        ],
-        "cuisines": ["Indian"],
-        "author": {
-          "name": "Jane Smith",
-          "profile_url": "https://example.com/authors/janesmith"
-        },
-        "prep_time": "15 minutes",
-        "cook_time": "30 minutes",
-        "total_time": "45 minutes",
-        "difficulty": "Medium",
-        "servings": 4,
-        "instructions": [
-          "Marinate the chicken.",
-          "Prepare the curry base.",
-          "Cook the chicken with the base.",
-          "Add coconut milk and simmer.",
-          "Garnish with cilantro and serve."
-        ],
-        "image_url": "https://example.com/images/chicken-curry.jpg",
-        "ratings": 4.7
+      "prep_time": "10 minutes",
+      "cook_time": "20 minutes",
+      "total_time": "30 minutes",
+      "difficulty": "Easy",
+      "servings": 2,
+      "instructions": [
+        "Boil the spaghetti.",
+        "Cook the pancetta.",
+        "Mix eggs and cheese.",
+        "Combine all ingredients and serve."
+      ],
+      "image_url": "https://www.allrecipes.com/thmb/Vg2cRidr2zcYhWGvPD8M18xM_WY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/11973-spaghetti-carbonara-ii-DDMFS-4x3-6edea51e421e4457ac0c3269f3be5157.jpg",
+      "ratings": 4.5
+    },
+    {
+      "id": 2,
+      "title": "Chicken Curry",
+      "description": "A spicy and flavorful chicken curry with a rich gravy.",
+      "type": "Meal",
+      "categories": ["Curry", "Indian"],
+      "ingredients": [
+        "500g chicken",
+        "2 onions",
+        "3 tomatoes",
+        "4 cloves garlic",
+        "1 inch ginger",
+        "2 tsp curry powder",
+        "200ml coconut milk",
+        "Salt",
+        "Oil",
+        "Cilantro"
+      ],
+      "cuisines": ["Indian"],
+      "author": {
+        "name": "Jane Smith",
+        "profile_url": "https://example.com/authors/janesmith"
       },
-      {
-        "id": 3,
-        "title": "Chocolate Cake",
-        "description": "A rich and moist chocolate cake perfect for dessert.",
-        "type": "Dessert",
-        "categories": ["Dessert", "Baking"],
-        "ingredients": [
-          "200g flour",
-          "200g sugar",
-          "100g cocoa powder",
-          "1 tsp baking powder",
-          "1 tsp baking soda",
-          "2 large eggs",
-          "250ml milk",
-          "100ml vegetable oil",
-          "2 tsp vanilla extract",
-          "250ml boiling water"
-        ],
-        "cuisines": ["American"],
-        "author": {
-          "name": "John Doe",
-          "profile_url": "https://example.com/authors/johndoe"
-        },
-        "prep_time": "15 minutes",
-        "cook_time": "35 minutes",
-        "total_time": "50 minutes",
-        "difficulty": "Medium",
-        "servings": 8,
-        "instructions": [
-          "Preheat the oven to 175°C.",
-          "Grease and flour a baking pan.",
-          "Mix dry ingredients.",
-          "Add eggs, milk, oil, and vanilla; beat for 2 minutes.",
-          "Stir in boiling water (batter will be thin).",
-          "Pour into pan and bake for 30-35 minutes.",
-          "Cool and frost as desired."
-        ],
-        "image_url": "https://example.com/images/chocolate-cake.jpg",
-        "ratings": 4.8
+      "prep_time": "15 minutes",
+      "cook_time": "30 minutes",
+      "total_time": "45 minutes",
+      "difficulty": "Medium",
+      "servings": 4,
+      "instructions": [
+        "Marinate the chicken.",
+        "Prepare the curry base.",
+        "Cook the chicken with the base.",
+        "Add coconut milk and simmer.",
+        "Garnish with cilantro and serve."
+      ],
+      "image_url": "https://example.com/images/chicken-curry.jpg",
+      "ratings": 4.7
+    },
+    {
+      "id": 3,
+      "title": "Chocolate Cake",
+      "description": "A rich and moist chocolate cake perfect for dessert.",
+      "type": "Dessert",
+      "categories": ["Dessert", "Baking"],
+      "ingredients": [
+        "200g flour",
+        "200g sugar",
+        "100g cocoa powder",
+        "1 tsp baking powder",
+        "1 tsp baking soda",
+        "2 large eggs",
+        "250ml milk",
+        "100ml vegetable oil",
+        "2 tsp vanilla extract",
+        "250ml boiling water"
+      ],
+      "cuisines": ["American"],
+      "author": {
+        "name": "John Doe",
+        "profile_url": "https://example.com/authors/johndoe"
       },
-      {
-        "id": 4,
-        "title": "Sushi Rolls",
-        "description": "Delicious and fresh homemade sushi rolls with a variety of fillings.",
-        "type": "Meal",
-        "categories": ["Seafood", "Japanese"],
-        "ingredients": [
-          "2 cups sushi rice",
-          "2 1/2 cups water",
-          "1/2 cup rice vinegar",
-          "1 tbsp sugar",
-          "1 tsp salt",
-          "Nori sheets",
-          "Cucumber",
-          "Avocado",
-          "Carrot",
-          "Crab meat",
-          "Soy sauce",
-          "Wasabi",
-          "Pickled ginger"
-        ],
-        "cuisines": ["Japanese"],
-        "author": {
-          "name": "Akira Tanaka",
-          "profile_url": "https://example.com/authors/akiratanka"
-        },
-        "prep_time": "20 minutes",
-        "cook_time": "20 minutes",
-        "total_time": "40 minutes",
-        "difficulty": "Medium",
-        "servings": 4,
-        "instructions": [
-          "Cook the sushi rice.",
-          "Prepare the fillings.",
-          "Spread rice on nori sheets.",
-          "Add fillings and roll tightly.",
-          "Slice and serve with soy sauce, wasabi, and pickled ginger."
-        ],
-        "image_url": "https://example.com/images/sushi-rolls.jpg",
-        "ratings": 4.9
+      "prep_time": "15 minutes",
+      "cook_time": "35 minutes",
+      "total_time": "50 minutes",
+      "difficulty": "Medium",
+      "servings": 8,
+      "instructions": [
+        "Preheat the oven to 175°C.",
+        "Grease and flour a baking pan.",
+        "Mix dry ingredients.",
+        "Add eggs, milk, oil, and vanilla; beat for 2 minutes.",
+        "Stir in boiling water (batter will be thin).",
+        "Pour into pan and bake for 30-35 minutes.",
+        "Cool and frost as desired."
+      ],
+      "image_url": "https://example.com/images/chocolate-cake.jpg",
+      "ratings": 4.8
+    },
+    {
+      "id": 4,
+      "title": "Sushi Rolls",
+      "description": "Delicious and fresh homemade sushi rolls with a variety of fillings.",
+      "type": "Meal",
+      "categories": ["Seafood", "Japanese"],
+      "ingredients": [
+        "2 cups sushi rice",
+        "2 1/2 cups water",
+        "1/2 cup rice vinegar",
+        "1 tbsp sugar",
+        "1 tsp salt",
+        "Nori sheets",
+        "Cucumber",
+        "Avocado",
+        "Carrot",
+        "Crab meat",
+        "Soy sauce",
+        "Wasabi",
+        "Pickled ginger"
+      ],
+      "cuisines": ["Japanese"],
+      "author": {
+        "name": "Akira Tanaka",
+        "profile_url": "https://example.com/authors/akiratanka"
       },
-      {
-        "id": 5,
-        "title": "Pad Thai",
-        "description": "A popular Thai stir-fried noodle dish with shrimp, tofu, and a tangy sauce.",
-        "type": "Meal",
-        "categories": ["Noodles", "Thai"],
-        "ingredients": [
-          "200g rice noodles",
-          "200g shrimp",
-          "100g tofu",
-          "2 eggs",
-          "1 cup bean sprouts",
-          "2 cloves garlic",
-          "2 tbsp fish sauce",
-          "1 tbsp tamarind paste",
-          "1 tbsp sugar",
-          "1 lime",
-          "Peanuts",
-          "Green onions",
-          "Cilantro",
-          "Oil"
-        ],
-        "cuisines": ["Thai"],
-        "author": {
-          "name": "Somchai Wongsawat",
-          "profile_url": "https://example.com/authors/somchaiwongsawat"
-        },
-        "prep_time": "15 minutes",
-        "cook_time": "15 minutes",
-        "total_time": "30 minutes",
-        "difficulty": "Medium",
-        "servings": 2,
-        "instructions": [
-          "Cook the rice noodles.",
-          "Stir-fry shrimp and tofu.",
-          "Scramble eggs in the pan.",
-          "Add noodles and sauce ingredients.",
-          "Mix well and serve with bean sprouts, peanuts, and lime."
-        ],
-        "image_url": "https://example.com/images/pad-thai.jpg",
-        "ratings": 4.6
+      "prep_time": "20 minutes",
+      "cook_time": "20 minutes",
+      "total_time": "40 minutes",
+      "difficulty": "Medium",
+      "servings": 4,
+      "instructions": [
+        "Cook the sushi rice.",
+        "Prepare the fillings.",
+        "Spread rice on nori sheets.",
+        "Add fillings and roll tightly.",
+        "Slice and serve with soy sauce, wasabi, and pickled ginger."
+      ],
+      "image_url": "https://example.com/images/sushi-rolls.jpg",
+      "ratings": 4.9
+    },
+    {
+      "id": 5,
+      "title": "Pad Thai",
+      "description": "A popular Thai stir-fried noodle dish with shrimp, tofu, and a tangy sauce.",
+      "type": "Meal",
+      "categories": ["Noodles", "Thai"],
+      "ingredients": [
+        "200g rice noodles",
+        "200g shrimp",
+        "100g tofu",
+        "2 eggs",
+        "1 cup bean sprouts",
+        "2 cloves garlic",
+        "2 tbsp fish sauce",
+        "1 tbsp tamarind paste",
+        "1 tbsp sugar",
+        "1 lime",
+        "Peanuts",
+        "Green onions",
+        "Cilantro",
+        "Oil"
+      ],
+      "cuisines": ["Thai"],
+      "author": {
+        "name": "Somchai Wongsawat",
+        "profile_url": "https://example.com/authors/somchaiwongsawat"
       },
-      {
-        "id": 6,
-        "title": "Greek Salad",
-        "description": "A fresh and healthy salad with tomatoes, cucumbers, olives, and feta cheese.",
-        "type": "Side Dish",
-        "categories": ["Salads", "Greek"],
-        "ingredients": [
-          "4 tomatoes",
-          "1 cucumber",
-          "1 red onion",
-          "1 green bell pepper",
-          "100g feta cheese",
-          "50g kalamata olives",
-          "1 tsp dried oregano",
-          "2 tbsp olive oil",
-          "1 tbsp red wine vinegar",
-          "Salt",
-          "Black pepper"
-        ],
-        "cuisines": ["Greek"],
-        "author": {
-          "name": "Maria Papadopoulos",
-          "profile_url": "https://example.com/authors/mariapapadopoulos"
-        },
-        "prep_time": "10 minutes",
-        "cook_time": "0 minutes",
-        "total_time": "10 minutes",
-        "difficulty": "Easy",
-        "servings": 4,
-        "instructions": [
-          "Chop the vegetables.",
-          "Mix in a large bowl.",
-          "Add feta, olives, and seasonings.",
-          "Drizzle with olive oil and vinegar.",
-          "Toss and serve."
-        ],
-        "image_url": "https://example.com/images/greek-salad.jpg",
-        "ratings": 4.4
+      "prep_time": "15 minutes",
+      "cook_time": "15 minutes",
+      "total_time": "30 minutes",
+      "difficulty": "Medium",
+      "servings": 2,
+      "instructions": [
+        "Cook the rice noodles.",
+        "Stir-fry shrimp and tofu.",
+        "Scramble eggs in the pan.",
+        "Add noodles and sauce ingredients.",
+        "Mix well and serve with bean sprouts, peanuts, and lime."
+      ],
+      "image_url": "https://example.com/images/pad-thai.jpg",
+      "ratings": 4.6
+    },
+    {
+      "id": 6,
+      "title": "Greek Salad",
+      "description": "A fresh and healthy salad with tomatoes, cucumbers, olives, and feta cheese.",
+      "type": "Side Dish",
+      "categories": ["Salads", "Greek"],
+      "ingredients": [
+        "4 tomatoes",
+        "1 cucumber",
+        "1 red onion",
+        "1 green bell pepper",
+        "100g feta cheese",
+        "50g kalamata olives",
+        "1 tsp dried oregano",
+        "2 tbsp olive oil",
+        "1 tbsp red wine vinegar",
+        "Salt",
+        "Black pepper"
+      ],
+      "cuisines": ["Greek"],
+      "author": {
+        "name": "Maria Papadopoulos",
+        "profile_url": "https://example.com/authors/mariapapadopoulos"
       },
-      {
-        "id": 7,
-        "title": "Bratwurst with Sauerkraut",
-        "description": "Traditional German sausages served with tangy sauerkraut.",
-        "type": "Meal",
-        "categories": ["Grilling", "German"],
-        "ingredients": [
-          "4 bratwursts",
-          "2 cups sauerkraut",
-          "1 onion",
-          "1 tbsp butter",
-          "1 tsp caraway seeds",
-          "Salt",
-          "Black pepper",
-          "Mustard"
-        ],
-        "cuisines": ["German"],
-        "author": {
-          "name": "Hans Müller",
-          "profile_url": "https://example.com/authors/hansmuller"
-        },
-        "prep_time": "10 minutes",
-        "cook_time": "20 minutes",
-        "total_time": "30 minutes",
-        "difficulty": "Easy",
-        "servings": 4,
-        "instructions": [
-          "Grill the bratwursts.",
-          "Cook onion in butter until golden.",
-          "Add sauerkraut and caraway seeds.",
-          "Simmer until heated through.",
-          "Serve bratwursts with sauerkraut and mustard."
-        ],
-        "image_url": "https://example.com/images/bratwurst-sauerkraut.jpg",
-        "ratings": 4.3
+      "prep_time": "10 minutes",
+      "cook_time": "0 minutes",
+      "total_time": "10 minutes",
+      "difficulty": "Easy",
+      "servings": 4,
+      "instructions": [
+        "Chop the vegetables.",
+        "Mix in a large bowl.",
+        "Add feta, olives, and seasonings.",
+        "Drizzle with olive oil and vinegar.",
+        "Toss and serve."
+      ],
+      "image_url": "https://example.com/images/greek-salad.jpg",
+      "ratings": 4.4
+    },
+    {
+      "id": 7,
+      "title": "Bratwurst with Sauerkraut",
+      "description": "Traditional German sausages served with tangy sauerkraut.",
+      "type": "Meal",
+      "categories": ["Grilling", "German"],
+      "ingredients": [
+        "4 bratwursts",
+        "2 cups sauerkraut",
+        "1 onion",
+        "1 tbsp butter",
+        "1 tsp caraway seeds",
+        "Salt",
+        "Black pepper",
+        "Mustard"
+      ],
+      "cuisines": ["German"],
+      "author": {
+        "name": "Hans Müller",
+        "profile_url": "https://example.com/authors/hansmuller"
       },
-      {
-        "id": 8,
-        "title": "Baklava",
-        "description": "A sweet and rich dessert made with layers of filo pastry, nuts, and honey syrup.",
-        "type": "Dessert",
-        "categories": ["Dessert", "Baking"],
-        "ingredients": [
-          "200g filo pastry",
-          "200g mixed nuts",
-          "100g butter",
-          "100g sugar",
-          "100ml honey",
-          "1 tsp cinnamon",
-          "1 tsp lemon juice",
-          "1 tsp vanilla extract"
-        ],
-        "cuisines": ["Turkish"],
-        "author": {
-          "name": "Ayşe Yıldırım",
-          "profile_url": "https://example.com/authors/ayseyildirim"
-        },
-        "prep_time": "20 minutes",
-        "cook_time": "30 minutes",
-        "total_time": "50 minutes",
-        "difficulty": "Medium",
-        "servings": 8,
-        "instructions": [
-          "Preheat the oven to 175°C.",
-          "Layer filo pastry with melted butter and nuts.",
-          "Bake until golden brown.",
-          "Prepare honey syrup with sugar, honey, lemon juice, and vanilla.",
-          "Pour syrup over hot baklava and cool."
-        ],
-        "image_url": "https://example.com/images/baklava.jpg",
-        "ratings": 4.9
+      "prep_time": "10 minutes",
+      "cook_time": "20 minutes",
+      "total_time": "30 minutes",
+      "difficulty": "Easy",
+      "servings": 4,
+      "instructions": [
+        "Grill the bratwursts.",
+        "Cook onion in butter until golden.",
+        "Add sauerkraut and caraway seeds.",
+        "Simmer until heated through.",
+        "Serve bratwursts with sauerkraut and mustard."
+      ],
+      "image_url": "https://example.com/images/bratwurst-sauerkraut.jpg",
+      "ratings": 4.3
+    },
+    {
+      "id": 8,
+      "title": "Baklava",
+      "description": "A sweet and rich dessert made with layers of filo pastry, nuts, and honey syrup.",
+      "type": "Dessert",
+      "categories": ["Dessert", "Baking"],
+      "ingredients": [
+        "200g filo pastry",
+        "200g mixed nuts",
+        "100g butter",
+        "100g sugar",
+        "100ml honey",
+        "1 tsp cinnamon",
+        "1 tsp lemon juice",
+        "1 tsp vanilla extract"
+      ],
+      "cuisines": ["Turkish"],
+      "author": {
+        "name": "Ayşe Yıldırım",
+        "profile_url": "https://example.com/authors/ayseyildirim"
       },
-      {
-        "id": 9,
-        "title": "Tacos",
-        "description": "Mexican street food made with tortillas and a variety of fillings.",
-        "type": "Meal",
-        "categories": ["Mexican", "Quick & Easy"],
-        "ingredients": [
-          "8 corn tortillas",
-          "500g ground beef",
-          "1 onion",
-          "2 tomatoes",
-          "1 cup lettuce",
-          "1 cup cheese",
-          "1 tbsp taco seasoning",
-          "Sour cream",
-          "Salsa",
-          "Cilantro"
-        ],
-        "cuisines": ["Mexican"],
-        "author": {
-          "name": "Carlos Hernandez",
-          "profile_url": "https://example.com/authors/carloshernandez"
-        },
-        "prep_time": "10 minutes",
-        "cook_time": "10 minutes",
-        "total_time": "20 minutes",
-        "difficulty": "Easy",
-        "servings": 4,
-        "instructions": [
-          "Cook the ground beef with taco seasoning.",
-          "Warm the tortillas.",
-          "Prepare the toppings.",
-          "Assemble the tacos and serve."
-        ],
-        "image_url": "https://example.com/images/tacos.jpg",
-        "ratings": 4.6
+      "prep_time": "20 minutes",
+      "cook_time": "30 minutes",
+      "total_time": "50 minutes",
+      "difficulty": "Medium",
+      "servings": 8,
+      "instructions": [
+        "Preheat the oven to 175°C.",
+        "Layer filo pastry with melted butter and nuts.",
+        "Bake until golden brown.",
+        "Prepare honey syrup with sugar, honey, lemon juice, and vanilla.",
+        "Pour syrup over hot baklava and cool."
+      ],
+      "image_url": "https://example.com/images/baklava.jpg",
+      "ratings": 4.9
+    },
+    {
+      "id": 9,
+      "title": "Tacos",
+      "description": "Mexican street food made with tortillas and a variety of fillings.",
+      "type": "Meal",
+      "categories": ["Mexican", "Quick & Easy"],
+      "ingredients": [
+        "8 corn tortillas",
+        "500g ground beef",
+        "1 onion",
+        "2 tomatoes",
+        "1 cup lettuce",
+        "1 cup cheese",
+        "1 tbsp taco seasoning",
+        "Sour cream",
+        "Salsa",
+        "Cilantro"
+      ],
+      "cuisines": ["Mexican"],
+      "author": {
+        "name": "Carlos Hernandez",
+        "profile_url": "https://example.com/authors/carloshernandez"
       },
-      {
-        "id": 10,
-        "title": "Pho",
-        "description": "A Vietnamese soup consisting of broth, rice noodles, herbs, and meat.",
-        "type": "Soup",
-        "categories": ["Soups", "Vietnamese"],
-        "ingredients": [
-          "1 kg beef bones",
-          "1 onion",
-          "1 ginger",
-          "1 cinnamon stick",
-          "3 star anise",
-          "4 cloves",
-          "1 cardamom pod",
-          "2 tbsp fish sauce",
-          "200g rice noodles",
-          "300g beef",
-          "Bean sprouts",
-          "Basil",
-          "Cilantro",
-          "Lime",
-          "Hoisin sauce",
-          "Sriracha"
-        ],
-        "cuisines": ["Vietnamese"],
-        "author": {
-          "name": "Nguyen Thi Lan",
-          "profile_url": "https://example.com/authors/nguyenthlan"
-        },
-        "prep_time": "30 minutes",
-        "cook_time": "3 hours",
-        "total_time": "3 hours 30 minutes",
-        "difficulty": "Hard",
-        "servings": 4,
-        "instructions": [
-          "Roast the bones and onion.",
-          "Simmer with ginger and spices for hours.",
-          "Prepare the noodles and toppings.",
-          "Slice the beef thinly.",
-          "Assemble the bowls and serve with broth."
-        ],
-        "image_url": "https://example.com/images/pho.jpg",
-        "ratings": 4.8
-      }
-    ]
-  }
-  
+      "prep_time": "10 minutes",
+      "cook_time": "10 minutes",
+      "total_time": "20 minutes",
+      "difficulty": "Easy",
+      "servings": 4,
+      "instructions": [
+        "Cook the ground beef with taco seasoning.",
+        "Warm the tortillas.",
+        "Prepare the toppings.",
+        "Assemble the tacos and serve."
+      ],
+      "image_url": "https://example.com/images/tacos.jpg",
+      "ratings": 4.6
+    },
+    {
+      "id": 10,
+      "title": "Pho",
+      "description": "A Vietnamese soup consisting of broth, rice noodles, herbs, and meat.",
+      "type": "Soup",
+      "categories": ["Soups", "Vietnamese"],
+      "ingredients": [
+        "1 kg beef bones",
+        "1 onion",
+        "1 ginger",
+        "1 cinnamon stick",
+        "3 star anise",
+        "4 cloves",
+        "1 cardamom pod",
+        "2 tbsp fish sauce",
+        "200g rice noodles",
+        "300g beef",
+        "Bean sprouts",
+        "Basil",
+        "Cilantro",
+        "Lime",
+        "Hoisin sauce",
+        "Sriracha"
+      ],
+      "cuisines": ["Vietnamese"],
+      "author": {
+        "name": "Nguyen Thi Lan",
+        "profile_url": "https://example.com/authors/nguyenthlan"
+      },
+      "prep_time": "30 minutes",
+      "cook_time": "3 hours",
+      "total_time": "3 hours 30 minutes",
+      "difficulty": "Hard",
+      "servings": 4,
+      "instructions": [
+        "Roast the bones and onion.",
+        "Simmer with ginger and spices for hours.",
+        "Prepare the noodles and toppings.",
+        "Slice the beef thinly.",
+        "Assemble the bowls and serve with broth."
+      ],
+      "image_url": "https://example.com/images/pho.jpg",
+      "ratings": 4.8
+    }
+  ]
+}
