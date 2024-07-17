@@ -7,6 +7,6 @@ export default [
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/authorization/Register.vue')
+      component: () => import('../views/authorization/AuthRegister.vue')
     }
   ]

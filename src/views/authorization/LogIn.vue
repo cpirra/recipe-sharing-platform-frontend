@@ -2,26 +2,48 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
+import axios from 'axios'
 
 export default {
   setup() {
     const email = ref('')
     const password = ref('')
+    const loading = ref(false)
+    const error = ref('')
     const userStore = useUserStore()
     const router = useRouter()
 
     const handleLogin = async () => {
-      await userStore.login(email.value, password.value)
-      if (!userStore.error) {
-        router.push('/')
+      error.value = ''
+      loading.value = true
+
+      try {
+        const response = await axios.post('https://localhost:7142/api/users/login', {
+          email: email.value,
+          password: password.value
+        })
+
+        if (response.status === 200) {
+          const token = response.data
+          localStorage.setItem('token', token)
+          userStore.login(email.value, password.value) // Or any other logic to update the store
+          router.push('/')
+        } else {
+          error.value = response.data.message || 'Login failed'
+        }
+      } catch (err) {
+        error.value = 'An error occurred. Please try again later.'
       }
+
+      loading.value = false
     }
 
     return {
       email,
       password,
-      handleLogin,
-      error: userStore.error
+      loading,
+      error,
+      handleLogin
     }
   }
 }
@@ -43,9 +65,7 @@ export default {
           />
         </div>
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1"
-            >Password:</label
-          >
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password:</label>
           <input
             type="password"
             id="password"
@@ -64,17 +84,17 @@ export default {
             <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
           </div>
           <div class="text-sm">
-            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"
-              >Forgot your password?</a
-            >
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
           </div>
         </div>
         <div>
           <button
             type="submit"
+            :disabled="loading"
             class="w-full flex justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Login
+            <span v-if="loading">Loading...</span>
+            <span v-else>Login</span>
           </button>
         </div>
         <div v-if="error" class="mt-4 text-sm text-red-600 text-center">

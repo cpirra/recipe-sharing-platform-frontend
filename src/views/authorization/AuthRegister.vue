@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
+import { getUserInfoFromToken } from '@/utils/getUserInfoFromToken.vue'
 
 export default {
   setup() {
@@ -29,15 +30,37 @@ export default {
       console.log('Registering with data:', userData) // Log the userData object
 
       try {
-        await userStore.register({
-          name: name.value,
-          age: age.value,
-          email: email.value,
-          password: password.value
+        const response = await fetch('https://your-backend-api.com/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(userData)
         })
-        if (!userStore.error) {
-          router.push('/')
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          userStore.error = errorData.message || 'Registration failed'
+          return
         }
+
+        const result = await response.json()
+        console.log('Registration successful:', result)
+
+        // Save the token to localStorage
+        localStorage.setItem('token', result.token)
+
+        // Use getUserInfoFromToken to decode the token and get user info
+        const userInfo = getUserInfoFromToken()
+        console.log('Decoded user info:', userInfo)
+
+        // Assuming you want to store the userInfo in userStore
+        if (userInfo) {
+          userStore.setUser(userInfo) // Ensure setUser method is defined in your userStore
+        }
+
+        userStore.error = null // Clear any previous error
+        router.push('/')
       } catch (error) {
         console.error('Registration error:', error)
         userStore.error = 'Registration failed'
@@ -56,6 +79,7 @@ export default {
   }
 }
 </script>
+
 <template>
   <div class="flex items-center justify-center min-h-screen">
     <div class="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
@@ -92,9 +116,7 @@ export default {
           />
         </div>
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1"
-            >Password:</label
-          >
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password:</label>
           <input
             type="password"
             id="password"
@@ -104,9 +126,7 @@ export default {
           />
         </div>
         <div>
-          <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1"
-            >Confirm Password:</label
-          >
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password:</label>
           <input
             type="password"
             id="confirmPassword"
