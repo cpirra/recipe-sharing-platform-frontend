@@ -18,15 +18,16 @@ export default {
       loading.value = true
 
       try {
-        const response = await axios.post('https://localhost:7142/api/users/login', {
-          email: email.value,
+        const response = await axios.post('https://localhost:7036/api/User/login', {
+          username: email.value,
           password: password.value
         })
 
         if (response.status === 200) {
-          const token = response.data
+          console.log(response)
+          const token = response.data.token
           localStorage.setItem('token', token)
-          userStore.login(email.value, password.value) // Or any other logic to update the store
+          userStore.login(email.value, token) // Or any other logic to update the store
           router.push('/')
         } else {
           error.value = response.data.message || 'Login failed'
@@ -55,9 +56,9 @@ export default {
       <h2 class="text-2xl font-bold text-center text-gray-800">Login</h2>
       <form @submit.prevent="handleLogin" class="space-y-6">
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email:</label>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Username:</label>
           <input
-            type="email"
+            type="text"
             id="email"
             v-model="email"
             required
@@ -65,7 +66,9 @@ export default {
           />
         </div>
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password:</label>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1"
+            >Password:</label
+          >
           <input
             type="password"
             id="password"
@@ -84,7 +87,9 @@ export default {
             <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
           </div>
           <div class="text-sm">
-            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"
+              >Forgot your password?</a
+            >
           </div>
         </div>
         <div>
