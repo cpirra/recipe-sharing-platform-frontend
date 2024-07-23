@@ -1,36 +1,30 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
 
-export const useUserStore = defineStore('userStore', {
+export const useUserStore = defineStore('user', {
   state: () => ({
     user: null,
-    token: null,
-    error: null
+    token: null
   }),
   actions: {
-    async login(email, password) {
-      try {
-        const response = await axios.post('/api/login', { email, password })
-        this.user = response.data.user
-        this.token = response.data.token
-        this.error = null
-      } catch (error) {
-        this.error = 'Invalid email or password'
-      }
+    setUser(user, token) {
+      this.user = user
+      this.token = token
+      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('token', token)
     },
-    async register(userData) {
-      try {
-        const response = await axios.post('/api/register', userData)
-        this.user = response.data.user
-        this.token = response.data.token
-        this.error = null
-      } catch (error) {
-        this.error = 'Registration failed'
+    loadUserFromLocalStorage() {
+      const user = localStorage.getItem('user')
+      const token = localStorage.getItem('token')
+      if (user && token) {
+        this.user = JSON.parse(user)
+        this.token = token
       }
     },
     logout() {
       this.user = null
       this.token = null
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
     }
   }
 })

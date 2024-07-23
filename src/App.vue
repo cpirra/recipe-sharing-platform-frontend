@@ -1,26 +1,13 @@
 <script>
-
 export default {
-  name: "App",
-};
-//import { useUserStore } from './stores/userStore'
-
-/*
-const userStore = useUserStore()
-
-const logout = () => {
-  userStore.logout()
+  name: 'App'
 }
-*/
 </script>
 
 <template>
   <div class="main">
-    <RouterView/>
+    <RouterView />
   </div>
-  
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
