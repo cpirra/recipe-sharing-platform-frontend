@@ -1,5 +1,7 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/general/HomeView.vue'
+import { useUserStore } from '../stores/userStore'
 
 // Import routes from other modules
 import recipeRoutes from './recipe'
@@ -24,10 +26,7 @@ const router = createRouter({
         },
         {
           path: '/about',
-          name: 'about',
-          // route level code-splitting
-          // this generates a separate chunk (About.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
+          name: 'About',
           component: () => import('../views/general/AboutView.vue')
         },
         // Spread the imported routes
@@ -45,6 +44,18 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+// Navigation guard to check for authenticated users
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+
+  if (to.matched.some((record) => record.meta.requiresAuth) && !userStore.isAuthenticated) {
+    // Redirect to the login page if the user is not authenticated
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
 })
 
 export default router
