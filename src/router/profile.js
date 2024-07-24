@@ -1,17 +1,16 @@
+import ProfileView from '../views/general/ProfileView.vue'
+import ProfileEdit from '../views/profile/ProfileEdit.vue'
+
 export default {
-    path: '/profile',
-    component: () => import('../views/ProfileView.vue'),
-    children: [
-      /*
-      {
-        path: '',
-        name: 'profile',
-        component: () => import('../views/profile/Listing.vue')
-      },*/
-      {
-        path: ':id',
-        name: 'profile-edit',
-        component: () => import('../views/profile/Edit.vue')
-      },
-    ]
-  }
+  path: '/profile',
+  component: ProfileView,
+  // meta: { requiresAuth: true },
+  children: [
+    {
+      path: ':id',
+      name: 'ProfileEdit',
+      component: ProfileEdit
+      // meta: { requiresAuth: true }
+    }
+  ]
+}
