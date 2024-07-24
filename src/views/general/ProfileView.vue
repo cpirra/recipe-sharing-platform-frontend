@@ -1,39 +1,21 @@
+<script setup>
+import { useUserStore } from '../../stores/userStore'
+
+const userStore = useUserStore()
+const userName = userStore.getUser
+</script>
+
 <template>
-  <div class="profile">
-    <h1>User Profile</h1>
-    <div v-if="user">
-      <p><strong>Username:</strong> {{ user['https://RecipeAPI/name'] }}</p>
-      <p><strong>Email:</strong> {{ user['https://RecipeAPI/email'] }}</p>
-      <!-- Add more user details as needed -->
-    </div>
-    <div v-else>
-      <p>Please log in to view your profile.</p>
+  <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-4">Profile Page</h1>
+    <div class="bg-gray-100 p-4 rounded-lg">
+      <p class="text-lg font-medium">
+        Username: <span class="text-blue-600">{{ userName }}</span>
+      </p>
     </div>
   </div>
 </template>
 
-<script setup>
-import { computed, onMounted } from 'vue'
-import { useUserStore } from '../../stores/userStore'
-
-const userStore = useUserStore()
-
-const user = computed(() => userStore.user)
-
-// Load user data from local storage when the component is mounted
-onMounted(() => {
-  userStore.loadUserFromLocalStorage()
-  console.log('Loaded user from local storage:', userStore.user) // Debugging statement
-})
-</script>
-
 <style scoped>
-.profile {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-}
+/* Additional scoped styles can go here if needed */
 </style>
