@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/userStore.js'
 import { ref } from 'vue'
 
@@ -8,24 +8,50 @@ const showDropdownCuisines = ref(false)
 const showDropdownCategories = ref(false)
 const showMenu = ref(false)
 
-const cuisines = [
-  "Italian", "Indian", "Chinese", "Mexican", "American", "French", "Greek", "Turkish", "Spanish", "Korean", "Brazilian"
-]
+const cuisines = ref([]) // Use ref for reactive array
 
-const categories = [
-  "Pasta", "Dessert", "Baking", "Vegetarian", "Vegan", "Seafood", "Grilling", "Breakfast", "Brunch", "Holiday"
-]
+const fetchCuisines = async () => {
+  try {
+    const response = await fetch('https://localhost:7036/api/Cuisine')
+    if (!response.ok) {
+      throw new Error('Failed to fetch cuisines')
+    }
+    cuisines.value = await response.json()
+  } catch (error) {
+    console.error('Error fetching cuisines:', error)
+  }
+}
+
+const categoriesData = ref([])
+
+const fetchCategories = async () => {
+  try {
+    const response = await fetch('https://localhost:7036/api/Categories')
+    if (!response.ok) {
+      throw new Error('Failed to fetch categories')
+    }
+    categoriesData.value = await response.json()
+  } catch (error) {
+    console.error('Error fetching categories:', error)
+  }
+}
 
 const logout = () => {
   userStore.logout()
 }
 
-const toggleDropdownCuisines = () => {
-  showDropdownCuisines.value = !showDropdownCuisines.value
+const toggleDropdownCuisines = (value) => {
+  showDropdownCuisines.value = value
+  if (showDropdownCuisines.value && cuisines.value.length === 0) {
+    fetchCuisines()
+  }
 }
 
-const toggleDropdownCategories = () => {
-  showDropdownCategories.value = !showDropdownCategories.value
+const toggleDropdownCategories = (value) => {
+  showDropdownCategories.value = value
+  if (showDropdownCategories.value && categoriesData.value.length === 0) {
+    fetchCategories()
+  }
 }
 
 const toggleMenu = () => {
@@ -48,18 +74,19 @@ const toggleMenu = () => {
         <RouterLink to="/" class="mr-4 pr-4 pl-4">Home</RouterLink>
         <RouterLink to="/about" class="mr-4 pr-4 pl-4">About</RouterLink>
         <div class="relative">
-          <button @click="toggleDropdownCuisines" class="mr-4 pr-4 pl-4 focus:outline-none">Cuisines</button>
-          <div v-if="showDropdownCuisines" class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-            <RouterLink v-for="cuisine in cuisines" :key="cuisine" :to="'/cuisines/' + cuisine.toLowerCase()" class="block px-4 py-2 text-black hover:bg-gray-200">
-              {{ cuisine }}
+          <button @mouseenter="toggleDropdownCuisines(true)" @mouseleave="toggleDropdownCuisines(false)" class="mr-4 pr-4 pl-4 focus:outline-none">Cuisines</button>
+          <div v-if="showDropdownCuisines" @mouseenter="toggleDropdownCuisines(true)" @mouseleave="toggleDropdownCuisines(false)" class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+            <RouterLink v-for="cuisine in cuisines" :key="cuisine.id" :to="'/cuisines/' + cuisine.id" class="block px-4 py-2 text-black hover:bg-gray-200">
+              {{ cuisine.name }}
             </RouterLink>
+
           </div>
         </div>
         <div class="relative">
-          <button @click="toggleDropdownCategories" class="mr-4 pr-4 pl-4 focus:outline-none">Categories</button>
-          <div v-if="showDropdownCategories" class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-            <RouterLink v-for="category in categories" :key="category" :to="'/categories/' + category.toLowerCase()" class="block px-4 py-2 text-black hover:bg-gray-200">
-              {{ category }}
+          <button @mouseenter="toggleDropdownCategories(true)" @mouseleave="toggleDropdownCategories(false)" class="mr-4 pr-4 pl-4 focus:outline-none">Categories</button>
+          <div v-if="showDropdownCategories" @mouseenter="toggleDropdownCategories(true)" @mouseleave="toggleDropdownCategories(false)" class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+            <RouterLink v-for="category in categoriesData" :key="category.id" :to="'/categories/' + category.name.toLowerCase()" class="block px-4 py-2 text-black hover:bg-gray-200">
+              {{ category.name }}
             </RouterLink>
           </div>
         </div>
@@ -73,6 +100,7 @@ const toggleMenu = () => {
   </nav>
   <RouterView />
 </template>
+
 
 <style scoped>
 .navbar {
