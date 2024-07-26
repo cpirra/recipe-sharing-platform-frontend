@@ -1,15 +1,16 @@
 [
   {
-    "image": "/src/assets/images/chickennoodle.jpg",
-    "category": "Spaghetti Pasta Salad Recipes",
-    "title": "Chicken Noodle Salad",
-    "ratings": 25
+    "id": 5,
+    "name": "Classic Margherita Pizza",
+    "description": "A delicious and simple Margherita pizza with fresh ingredients.",
+    "imageUrls": "https://example.com/images/margherita-pizza.jpg",
+    "videoUrls": "https://example.com/videos/margherita-pizza.mp4"
   },
   {
-    "image": "/src/assets/images/chickennoodle.jpg",
-    "category": "Wraps and Rolls",
-    "title": "Asian Lettuce Wraps",
-    "ratings": 2864
+    "name": "Classic Margherita Pizza",
+    "description": "A delicious and simple Margherita pizza with fresh ingredients.",
+    "imageUrls": "https://example.com/images/margherita-pizza.jpg",
+    "videoUrls": "https://example.com/videos/margherita-pizza.mp4"
   },
   {
     "image": "/src/assets/images/chickenNoodle.jpg",

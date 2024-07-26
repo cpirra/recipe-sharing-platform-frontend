@@ -3,6 +3,7 @@ import { useUserStore } from '../../stores/userStore'
 
 const userStore = useUserStore()
 const userName = userStore.getUser
+const userId = userStore.getUserId
 </script>
 
 <template>
@@ -11,6 +12,9 @@ const userName = userStore.getUser
     <div class="bg-gray-100 p-4 rounded-lg">
       <p class="text-lg font-medium">
         Username: <span class="text-blue-600">{{ userName }}</span>
+      </p>
+      <p class="text-lg font-medium">
+        UserId: <span class="text-blue-600">{{ userId }}</span>
       </p>
     </div>
   </div>

@@ -17,6 +17,8 @@ const decodedToken = getUserInfoFromToken()
 if (decodedToken) {
   const name = decodedToken['https://RecipeAPI/name']
   userStore.setUser(name)
+  const userID = decodedToken['https://RecipeAPI/userId']
+  userStore.setUserId(userID)
 }
 
 app.mount('#app')
