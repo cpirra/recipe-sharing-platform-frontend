@@ -3,6 +3,7 @@ import { onMounted } from 'vue'
 import { defineProps } from 'vue'
 import { useFavorite } from '@/composables/useFavourites'
 import { useUserStore } from '@/stores/userStore'
+import { debounce } from '@/utils/debounce'
 
 const recipe = defineProps({
   image: String,
@@ -12,15 +13,15 @@ const recipe = defineProps({
   id: Number
 })
 
-const { isFavorite, checkIfFavorite, toggleFavorite: toggleFav } = useFavorite()
+const { isFavorite, loading, checkIfFavorite, toggleFavorite: toggleFav } = useFavorite()
 const userStore = useUserStore()
 
-const toggleFavorite = (recipeId) => {
+const toggleFavorite = debounce((recipeId) => {
   const userId = userStore.getUserId
   const payload = { userId, recipeId }
   console.log('Payload:', payload) // Log the payload to the console
   toggleFav(userId, recipeId)
-}
+}, 300)
 
 onMounted(() => {
   const userId = userStore.getUserId
@@ -52,7 +53,12 @@ onMounted(() => {
         </div>
         <button
           @click="toggleFavorite(recipe.id)"
-          :class="{ 'text-red-500': isFavorite, 'text-gray-500': !isFavorite }"
+          :disabled="loading"
+          :class="{
+            'text-red-500': isFavorite,
+            'text-gray-500': !isFavorite,
+            'cursor-not-allowed': loading
+          }"
           class="ml-auto"
         >
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -70,5 +76,8 @@ onMounted(() => {
 <style scoped>
 .recipe-card {
   width: 320px;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 </style>

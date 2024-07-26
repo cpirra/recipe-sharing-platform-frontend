@@ -1,9 +1,9 @@
-// src/composables/useFavorite.js
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { addFavoriteRecipe, removeFavoriteRecipe, getFavoriteRecipes } from '../services/userApi'
 
 export const useFavorite = () => {
   const isFavorite = ref(false)
+  const loading = ref(false)
   const favoriteRecipes = ref([])
 
   const checkIfFavorite = async (userId, recipeId) => {
@@ -17,6 +17,8 @@ export const useFavorite = () => {
   }
 
   const toggleFavorite = async (userId, recipeId) => {
+    if (loading.value) return
+    loading.value = true
     if (isFavorite.value) {
       try {
         await removeFavoriteRecipe(userId, recipeId)
@@ -34,10 +36,12 @@ export const useFavorite = () => {
         console.error('Error adding favorite:', error)
       }
     }
+    loading.value = false
   }
 
   return {
     isFavorite,
+    loading,
     checkIfFavorite,
     toggleFavorite
   }
