@@ -14,3 +14,12 @@ export const registerUser = (userData) => {
 export const loginUser = (userData) => {
   return apiClient.post('/User/login', userData)
 }
+
+export const addFavoriteRecipe = (userId, recipeId) => {
+  const requestBody = {
+    userId,
+    recipeId
+  }
+
+  return apiClient.post('/FavoriteRecipe', requestBody)
+}
