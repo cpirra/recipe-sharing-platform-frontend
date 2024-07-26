@@ -1,3 +1,4 @@
+// src/services/userApi.js
 import axios from 'axios'
 
 const apiClient = axios.create({
@@ -22,4 +23,12 @@ export const addFavoriteRecipe = (userId, recipeId) => {
   }
 
   return apiClient.post('/FavoriteRecipe', requestBody)
+}
+
+export const removeFavoriteRecipe = (userId, recipeId) => {
+  return apiClient.delete(`/FavoriteRecipe/${userId}/${recipeId}`)
+}
+
+export const getFavoriteRecipes = (userId) => {
+  return apiClient.get(`/FavoriteRecipe/${userId}`).then((response) => response.data)
 }

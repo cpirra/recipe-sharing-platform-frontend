@@ -2,26 +2,42 @@
 import { ref } from 'vue'
 import RecipeCard from '@/components/Recipe/RecipeCard.vue'
 
-const recipeData = ref({
-  id: 1,
-  image: '/src/assets/images/chickenNoodle.jpg',
-  categories: ['Dessert', 'Vegan'],
-  cuisines: ['Italian', 'French'],
-  title: 'Chocolate Cake'
-})
+const recipes = [
+  {
+    id: 7,
+    title: 'Classic Margherita Pizza',
+    image: 'https://example.com/images/margherita-pizza.jpg',
+    categories: ['Appetizers'],
+    cuisines: ['Italian']
+  },
+  {
+    id: 8,
+    title: 'Spaghetti Carbonara',
+    image: 'https://example.com/images/spaghetti-carbonara.jpg',
+    categories: ['Main Course'],
+    cuisines: ['Italian']
+  }
+]
 </script>
 
 <template>
-  <div>
+  <div class="recipe-list">
     <RecipeCard
-      :image="recipeData.image"
-      :categories="recipeData.categories"
-      :cuisines="recipeData.cuisines"
-      :title="recipeData.title"
+      v-for="recipe in recipes"
+      :key="recipe.id"
+      :id="recipe.id"
+      :title="recipe.title"
+      :image="recipe.image"
+      :categories="recipe.categories"
+      :cuisines="recipe.cuisines"
     />
   </div>
 </template>
 
 <style scoped>
-/* Add any parent view specific styles here */
+.recipe-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 </style>
