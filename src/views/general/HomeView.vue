@@ -1,43 +1,21 @@
 <script setup>
-import { ref } from 'vue'
-import RecipeCard from '@/components/Recipe/RecipeCard.vue'
-
-const recipes = [
-  {
-    id: 7,
-    title: 'Classic Margherita Pizza',
-    image: 'https://example.com/images/margherita-pizza.jpg',
-    categories: ['Appetizers'],
-    cuisines: ['Italian']
-  },
-  {
-    id: 8,
-    title: 'Spaghetti Carbonara',
-    image: 'https://example.com/images/spaghetti-carbonara.jpg',
-    categories: ['Main Course'],
-    cuisines: ['Italian']
-  }
-]
+import RandomRecipes from '@/components/Recipe/RandomRecipes.vue'
+import LatestRecipes from '@/components/Recipe/LatestRecipes.vue'
+import TrenyRecipes from '@/components/Recipe/TrendyRecipes.vue';
 </script>
 
 <template>
-  <div class="recipe-list">
-    <RecipeCard
-      v-for="recipe in recipes"
-      :key="recipe.id"
-      :id="recipe.id"
-      :title="recipe.title"
-      :image="recipe.image"
-      :categories="recipe.categories"
-      :cuisines="recipe.cuisines"
-    />
+  <div>
+    <div class="hero flex justify-center">
+      <img class="w-4/5 h-auto" src="/src/assets/images/cookingimg.jpg" alt="Cooking Image">
+    </div>
+    <RandomRecipes :limit="4" :showPagination="false"/>
+    <!-- Use LatestRecipes Component with limit of 4 -->
+    <LatestRecipes :limit="4" :showPagination="false" />
+    <TrenyRecipes :limit="4" :showPagination="false"/>
   </div>
 </template>
 
 <style scoped>
-.recipe-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
+
 </style>
