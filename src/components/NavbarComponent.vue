@@ -2,11 +2,14 @@
 import { RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/userStore.js'
 import { ref } from 'vue'
+import axios from 'axios'
 
 const userStore = useUserStore()
 const showDropdownCuisines = ref(false)
 const showDropdownCategories = ref(false)
 const showMenu = ref(false)
+const searchQuery = ref('')
+const recipes = ref([])
 
 const cuisines = ref([]) // Use ref for reactive array
 
@@ -34,6 +37,19 @@ const fetchCategories = async () => {
   } catch (error) {
     console.error('Error fetching categories:', error)
   }
+}
+
+const searchRecipes = async (query) => {
+  try {
+    const response = await axios.get(`https://localhost:7036/api/Elastisearch/search?query=${query}`)
+    recipes.value = response.data // Update recipes with search results
+  } catch (error) {
+    console.error('Error searching recipes:', error)
+  }
+}
+
+const handleSearchInput = () => {
+  searchRecipes(searchQuery.value)
 }
 
 const logout = () => {
@@ -79,7 +95,6 @@ const toggleMenu = () => {
             <RouterLink v-for="cuisine in cuisines" :key="cuisine.id" :to="'/cuisines/' + cuisine.id" class="block px-4 py-2 text-black hover:bg-gray-200">
               {{ cuisine.name }}
             </RouterLink>
-
           </div>
         </div>
         <div class="relative">
@@ -93,14 +108,24 @@ const toggleMenu = () => {
       </div>
       <div class="flex flex-col sm:flex-row sm:items-center mt-4 sm:mt-0">
         <RouterLink v-if="!userStore.user" to="/login" class="mr-4 pr-4 pl-4">Login</RouterLink>
-        <button v-else @click="logout" class="logout-button">Logout</button>
-        <input class="search-input mt-4 sm:mt-0 sm:ml-4" type="text" placeholder="Pasta">
+        <div v-else class="user-logged-in flex gap-5 items-center">
+          <RouterLink :to="{ path: '/profile' }">
+            <img src="../assets/images/profile.png" alt="Profile Icon" class="profile-icon w-10 h-10 rounded-full" />
+          </RouterLink>
+          <button @click="logout" class="logout-button">Logout</button>
+        </div>
+        <input
+          class="search-input mt-4 sm:mt-0 sm:ml-4"
+          type="text"
+          placeholder="Search..."
+          v-model="searchQuery"
+          @input="handleSearchInput"
+        />
       </div>
     </div>
   </nav>
   <RouterView />
 </template>
-
 
 <style scoped>
 .navbar {
