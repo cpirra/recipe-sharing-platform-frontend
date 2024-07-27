@@ -17,6 +17,18 @@ export default [
     // meta: { requiresAuth: true }
   },
   {
+    path: '/recipes/latest',
+    name: 'RecipeLatest',
+    component: () => import('../views/recipe/RecipeLatestView.vue')
+    // meta: { requiresAuth: true }
+  },
+  {
+    path: '/recipes/trendy',
+    name: 'RecipeTrendy',
+    component: () => import('../views/recipe/RecipeTrendyView.vue')
+    // meta: { requiresAuth: true }
+  },
+  {
     path: '/recipes/:id',
     name: 'RecipeDetails',
     component: () => import('../views/recipe/RecipePageView.vue')

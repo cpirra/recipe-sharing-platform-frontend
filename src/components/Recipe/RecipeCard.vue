@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted } from 'vue'
 import { defineProps } from 'vue'
 import { useFavorite } from '@/composables/useFavourites'
 import { useUserStore } from '@/stores/userStore'
 import { debounce } from '@/utils/debounce'
+import { onMounted } from 'vue'
 
 const recipe = defineProps({
   image: String,

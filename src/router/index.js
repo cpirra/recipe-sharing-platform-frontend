@@ -24,7 +24,8 @@ const router = createRouter({
         {
           path: '/',
           name: 'Home',
-          component: HomeView
+          component: HomeView,
+          props: route => ({ recipes: route.query.recipes })
         },
         {
           path: '/about',
