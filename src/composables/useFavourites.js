@@ -1,48 +1,56 @@
-import { ref } from 'vue'
-import { addFavoriteRecipe, removeFavoriteRecipe, getFavoriteRecipes } from '../services/userApi'
+// src/composables/useFavorites.js
+import { ref, onMounted } from 'vue'
+import { useFavoriteStore } from '../stores/favoriteStore'
 
-export const useFavorite = () => {
-  const isFavorite = ref(false)
+export function useFavorites() {
+  const favoriteStore = useFavoriteStore()
   const loading = ref(false)
-  const favoriteRecipes = ref([])
+  const error = ref(null)
 
-  const checkIfFavorite = async (userId, recipeId) => {
-    try {
-      const result = await getFavoriteRecipes(userId)
-      favoriteRecipes.value = result
-      isFavorite.value = favoriteRecipes.value.some((recipe) => recipe.id === recipeId)
-    } catch (error) {
-      console.error('Error checking favorite status:', error)
-    }
-  }
-
-  const toggleFavorite = async (userId, recipeId) => {
-    if (loading.value) return
+  const fetchFavorites = async () => {
     loading.value = true
-    if (isFavorite.value) {
-      try {
-        await removeFavoriteRecipe(userId, recipeId)
-        isFavorite.value = false
-        console.log('Favorite removed')
-      } catch (error) {
-        console.error('Error removing favorite:', error)
-      }
-    } else {
-      try {
-        await addFavoriteRecipe(userId, recipeId)
-        isFavorite.value = true
-        console.log('Favorite added')
-      } catch (error) {
-        console.error('Error adding favorite:', error)
-      }
+    try {
+      await favoriteStore.fetchFavoriteRecipes()
+    } catch (err) {
+      error.value = err
+    } finally {
+      loading.value = false
     }
-    loading.value = false
   }
+
+  const addFavorite = async (recipeId) => {
+    try {
+      await favoriteStore.addFavorite(recipeId)
+    } catch (err) {
+      error.value = err
+    }
+  }
+
+  const removeFavorite = async (recipeId) => {
+    try {
+      await favoriteStore.removeFavorite(recipeId)
+    } catch (err) {
+      error.value = err
+    }
+  }
+
+  const isFavorite = (recipeId) => {
+    return favoriteStore.isFavorite(recipeId)
+  }
+
+  onMounted(async () => {
+    if (favoriteStore.favoriteRecipes.length === 0) {
+      await fetchFavorites()
+    }
+  })
 
   return {
-    isFavorite,
+    favoriteRecipes: favoriteStore.favoriteRecipes,
     loading,
-    checkIfFavorite,
-    toggleFavorite
+    error,
+    fetchFavorites,
+    addFavorite,
+    removeFavorite,
+    isFavorite
   }
 }

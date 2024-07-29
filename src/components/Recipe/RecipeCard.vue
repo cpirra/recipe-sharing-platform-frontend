@@ -1,11 +1,8 @@
 <script setup>
-import { defineProps } from 'vue'
-import { useFavorite } from '@/composables/useFavourites'
-import { useUserStore } from '@/stores/userStore'
+import { defineProps, inject } from 'vue'
 import { debounce } from '@/utils/debounce'
-import { onMounted } from 'vue'
 
-const recipe = defineProps({
+const props = defineProps({
   image: String,
   categories: Array,
   cuisines: Array,
@@ -13,30 +10,25 @@ const recipe = defineProps({
   id: Number
 })
 
-const { isFavorite, loading, checkIfFavorite, toggleFavorite: toggleFav } = useFavorite()
-const userStore = useUserStore()
+const favoriteStore = inject('favoriteStore')
 
 const toggleFavorite = debounce((recipeId) => {
-  const userId = userStore.getUserId
-  const payload = { userId, recipeId }
-  console.log('Payload:', payload) // Log the payload to the console
-  toggleFav(userId, recipeId)
+  if (favoriteStore.isFavorite(recipeId)) {
+    favoriteStore.removeFavorite(recipeId)
+  } else {
+    favoriteStore.addFavorite(recipeId)
+  }
 }, 300)
-
-onMounted(() => {
-  const userId = userStore.getUserId
-  checkIfFavorite(userId, recipe.id)
-})
 </script>
 
 <template>
   <div class="recipe-card border rounded-lg overflow-hidden shadow-lg">
-    <img :src="recipe.image" alt="Recipe Image" class="w-full h-48 object-cover" />
+    <img :src="image" alt="Recipe Image" class="w-full h-48 object-cover" />
     <div class="p-4">
       <div class="flex flex-wrap justify-between items-center mb-2">
         <div class="flex flex-wrap items-center">
           <span
-            v-for="(category, index) in recipe.categories"
+            v-for="(category, index) in categories"
             :key="index"
             class="text-sm font-medium text-gray-500 mr-2"
           >
@@ -44,7 +36,7 @@ onMounted(() => {
           </span>
           <span class="text-sm font-medium text-gray-500 mx-2">•</span>
           <span
-            v-for="(cuisine, index) in recipe.cuisines"
+            v-for="(cuisine, index) in cuisines"
             :key="index"
             class="text-sm font-medium text-gray-500 mr-2"
           >
@@ -52,12 +44,12 @@ onMounted(() => {
           </span>
         </div>
         <button
-          @click="toggleFavorite(recipe.id)"
-          :disabled="loading"
+          @click="toggleFavorite(id)"
+          :disabled="favoriteStore.loading"
           :class="{
-            'text-red-500': isFavorite,
-            'text-gray-500': !isFavorite,
-            'cursor-not-allowed': loading
+            'text-red-500': favoriteStore.isFavorite(id),
+            'text-gray-500': !favoriteStore.isFavorite(id),
+            'cursor-not-allowed': favoriteStore.loading
           }"
           class="ml-auto"
         >
@@ -68,7 +60,7 @@ onMounted(() => {
           </svg>
         </button>
       </div>
-      <h3 class="text-xl font-semibold text-gray-800">{{ recipe.title }}</h3>
+      <h3 class="text-xl font-semibold text-gray-800">{{ title }}</h3>
     </div>
   </div>
 </template>
