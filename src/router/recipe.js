@@ -31,6 +31,6 @@ export default [
   {
     path: '/recipes/:id',
     name: 'RecipeDetails',
-    component: () => import('../views/recipe/RecipePageView.vue')
+    component: () => import('../views/recipe/RecipeDetailView.vue')
   }
 ]

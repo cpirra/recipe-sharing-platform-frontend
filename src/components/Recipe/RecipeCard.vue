@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps, inject } from 'vue'
 import { debounce } from '@/utils/debounce'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   image: String,
@@ -11,6 +12,7 @@ const props = defineProps({
 })
 
 const favoriteStore = inject('favoriteStore')
+const router = useRouter()
 
 const toggleFavorite = debounce((recipeId) => {
   if (favoriteStore.isFavorite(recipeId)) {
@@ -19,10 +21,17 @@ const toggleFavorite = debounce((recipeId) => {
     favoriteStore.addFavorite(recipeId)
   }
 }, 300)
+
+const goToRecipeDetail = () => {
+  router.push({ name: 'RecipeDetails', params: { id: props.id } })
+}
 </script>
 
 <template>
-  <div class="recipe-card border rounded-lg overflow-hidden shadow-lg">
+  <div
+    @click="goToRecipeDetail"
+    class="recipe-card border rounded-lg overflow-hidden shadow-lg cursor-pointer"
+  >
     <img :src="image" alt="Recipe Image" class="w-full h-48 object-cover" />
     <div class="p-4">
       <div class="flex flex-wrap justify-between items-center mb-2">
@@ -44,7 +53,7 @@ const toggleFavorite = debounce((recipeId) => {
           </span>
         </div>
         <button
-          @click="toggleFavorite(id)"
+          @click.stop="toggleFavorite(id)"
           :disabled="favoriteStore.loading"
           :class="{
             'text-red-500': favoriteStore.isFavorite(id),

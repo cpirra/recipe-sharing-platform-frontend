@@ -36,7 +36,6 @@ export const removeFavoriteRecipe = (recipeId) => {
 export const getFavoriteRecipes = async () => {
   try {
     const response = await apiClient.get('/FavoriteRecipe')
-    console.log('API Response:', response.data) // Log the API response
     return response.data
   } catch (error) {
     console.error('Error fetching favorite recipes:', error)
