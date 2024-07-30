@@ -34,3 +34,14 @@ const apiCall = async (endpoint, options = {}) => {
 export const fetchRecipeById = async (id) => {
   return await apiCall(`/GetRecipe/${id}`)
 }
+
+export const fetchReviewsByRecipeId = async (id, page = 1, size = 5) => {
+  return await apiCall(`/Review/by-recipe/${id}?page=${page}&size=${size}`)
+}
+
+export const submitReview = async (review) => {
+  return await apiCall(`/Review`, {
+    method: 'POST',
+    body: JSON.stringify(review)
+  })
+}

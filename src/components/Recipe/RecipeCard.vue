@@ -30,16 +30,20 @@ const goToRecipeDetail = () => {
 <template>
   <div
     @click="goToRecipeDetail"
-    class="recipe-card border rounded-lg overflow-hidden shadow-lg cursor-pointer"
+    class="recipe-card border rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-105"
   >
-    <img :src="image" alt="Recipe Image" class="w-full h-48 object-cover" />
-    <div class="p-4">
+    <img
+      :src="image"
+      alt="Recipe Image"
+      class="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-80"
+    />
+    <div class="p-4 bg-white">
       <div class="flex flex-wrap justify-between items-center mb-2">
         <div class="flex flex-wrap items-center">
           <span
             v-for="(category, index) in categories"
             :key="index"
-            class="text-sm font-medium text-gray-500 mr-2"
+            class="text-sm font-medium text-gray-500 mr-2 bg-gray-200 px-2 py-1 rounded"
           >
             {{ category }}
           </span>
@@ -47,7 +51,7 @@ const goToRecipeDetail = () => {
           <span
             v-for="(cuisine, index) in cuisines"
             :key="index"
-            class="text-sm font-medium text-gray-500 mr-2"
+            class="text-sm font-medium text-gray-500 mr-2 bg-gray-200 px-2 py-1 rounded"
           >
             {{ cuisine }}
           </span>
@@ -60,7 +64,7 @@ const goToRecipeDetail = () => {
             'text-gray-500': !favoriteStore.isFavorite(id),
             'cursor-not-allowed': favoriteStore.loading
           }"
-          class="ml-auto"
+          class="ml-auto transition-colors duration-300"
         >
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
             <path
@@ -69,7 +73,7 @@ const goToRecipeDetail = () => {
           </svg>
         </button>
       </div>
-      <h3 class="text-xl font-semibold text-gray-800">{{ title }}</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ title }}</h3>
     </div>
   </div>
 </template>

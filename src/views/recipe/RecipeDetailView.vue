@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { fetchRecipeById } from '@/services/recipeApi'
+import Reviews from '@/components/Recipe/RecipeReview.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -85,7 +86,10 @@ onMounted(() => {
         <h2 class="text-xl font-semibold mb-2">Video</h2>
         <video :src="recipe.videoUrl" controls class="w-full"></video>
       </div>
-      <!-- Add any additional sections here if needed -->
+    </div>
+    <!-- Separate reviews section -->
+    <div class="reviews-section p-6 border-t mt-8">
+      <Reviews />
     </div>
   </div>
   <div v-else class="text-center p-6">
@@ -129,5 +133,8 @@ onMounted(() => {
 }
 .recipe-detail .p-6 {
   padding: 1.5rem;
+}
+.reviews-section {
+  background-color: #f9fafb; /* light gray background to distinguish */
 }
 </style>
