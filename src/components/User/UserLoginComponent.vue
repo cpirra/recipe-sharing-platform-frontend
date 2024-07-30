@@ -1,3 +1,25 @@
+
+<script setup>
+import { ref } from 'vue'
+import { RouterLink } from 'vue-router';
+
+const props = defineProps({
+  error: String
+})
+
+const emit = defineEmits(['login'])
+
+const username = ref('')
+const password = ref('')
+
+const submitForm = () => {
+  emit('login', {
+    username: username.value,
+    password: password.value
+  })
+}
+</script>
+
 <template>
   <div class="flex items-center justify-center min-h-screen">
     <div class="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
@@ -34,6 +56,7 @@
           >
             Login
           </button>
+          <p>You don't have an account? <RouterLink to="/register">Register</RouterLink> </p>
         </div>
         <div v-if="error" class="mt-4 text-sm text-red-600 text-center">
           {{ error }}
@@ -42,23 +65,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const props = defineProps({
-  error: String
-})
-
-const emit = defineEmits(['login'])
-
-const username = ref('')
-const password = ref('')
-
-const submitForm = () => {
-  emit('login', {
-    username: username.value,
-    password: password.value
-  })
-}
-</script>

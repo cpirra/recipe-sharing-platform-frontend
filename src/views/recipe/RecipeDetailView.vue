@@ -13,7 +13,7 @@ const fetchRecipe = async (id) => {
 }
 
 const goBack = () => {
-  router.push('/recipes')
+  router.push('/')
 }
 
 onMounted(() => {

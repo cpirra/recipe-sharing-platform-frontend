@@ -1,3 +1,13 @@
+<script>
+export default {
+  data() {
+    return {
+      platformName: "Recipe sharing platform"
+    };
+  }
+};
+</script>
+
 <template>
   <div class="about-us">
     <h1 class="about-title"><strong>About Us</strong></h1>
@@ -39,16 +49,6 @@
     </section>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      platformName: "Recipe sharing platform"
-    };
-  }
-};
-</script>
 
 <style scoped>
 .about-us {

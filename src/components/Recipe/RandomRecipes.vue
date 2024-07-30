@@ -7,7 +7,7 @@ const recipes = ref([]) // For random recipes
 
 const fetchRecipes = async () => {
   try {
-    const response = await axios.get('https://localhost:7036/api/GetRecipe/Card-Recipes')
+    const response = await axios.get('https://localhost:7036/api/Recipe')
     console.log(response.data);
     recipes.value = response.data.slice(0,4) 
   } catch (error) {
@@ -29,7 +29,7 @@ onMounted(() => {
         v-for="recipe in recipes"
         :key="recipe.id"
         :id="recipe.id"
-        :title="recipe.title"
+        :name="recipe.name"
         :image="recipe.image"
         :categories="recipe.categories || []"
         :cuisines="recipe.cuisines || []"
