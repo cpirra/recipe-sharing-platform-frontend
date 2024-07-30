@@ -1,64 +1,19 @@
+<script setup>
+import RandomRecipes from '@/components/Recipe/RandomRecipes.vue'
+import LatestRecipes from '@/components/Recipe/LatestRecipes.vue'
+import TrenyRecipes from '@/components/Recipe/TrendyRecipes.vue'
+</script>
+
 <template>
   <div>
-    <div class="recipe-list flex flex-wrap justify-center gap-4">
-      <RecipeCard
-        v-for="recipe in recipes"
-        :key="recipe.title"
-        :image="recipe.image"
-        :category="recipe.category"
-        :title="recipe.title"
-        :ratings="recipe.ratings"
-      />
+    <div class="hero flex justify-center">
+      <img class="w-4/5 h-auto" src="/src/assets/images/cookingimg.jpg" alt="Cooking Image" />
     </div>
-    <div class="recipe-list flex flex-wrap justify-center gap-4">
-      <RecipeCard
-        v-for="recipe in recipes"
-        :key="recipe.title"
-        :image="recipe.image"
-        :category="recipe.category"
-        :title="recipe.title"
-        :ratings="recipe.ratings"
-      />
-    </div>
-    <div class="recipe-list flex flex-wrap justify-center gap-4">
-      <RecipeCard
-        v-for="recipe in recipes"
-        :key="recipe.title"
-        :image="recipe.image"
-        :category="recipe.category"
-        :title="recipe.title"
-        :ratings="recipe.ratings"
-      />
-    </div>
+    <TrenyRecipes :limit="4" :showPagination="false" />
+    <!-- Use LatestRecipes Component with limit of 4 -->
+    <LatestRecipes :limit="4" :showPagination="false" />
+    <RandomRecipes :limit="4" :showPagination="false" />
   </div>
 </template>
 
-<script setup>
-import { onMounted, ref } from 'vue'
-import RecipeCard from '../../components/Recipe/RecipeCard.vue'
-
-const recipes = ref([])
-
-const loadRecipes = async () => {
-  try {
-    const response = await fetch('/data/recipeCard.json')
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
-    }
-    const data = await response.json()
-    recipes.value = data
-  } catch (error) {
-    console.error('Error fetching recipes:', error)
-  }
-}
-
-onMounted(() => {
-  loadRecipes()
-})
-</script>
-
-<style scoped>
-.recipe-list {
-  padding: 16px;
-}
-</style>
+<style scoped></style>
