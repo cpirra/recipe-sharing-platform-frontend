@@ -39,7 +39,7 @@ export function useFavorites() {
   }
 
   onMounted(async () => {
-    if (favoriteStore.favoriteRecipes.length === 0) {
+    if (favoriteStore.favoriteRecipes.size === 0) {
       await fetchFavorites()
     }
   })
