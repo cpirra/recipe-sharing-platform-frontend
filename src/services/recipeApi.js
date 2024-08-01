@@ -3,7 +3,7 @@
 const BASE_URL = 'https://localhost:7036/api'
 
 const getToken = () => {
-  return localStorage.getItem('token')
+  return localStorage.getItem('auth_token')
 }
 
 const apiCall = async (endpoint, options = {}) => {
