@@ -5,7 +5,7 @@ import VueJwtDecode from 'vue-jwt-decode'
  * @returns {object|null} The decoded token or null if decoding fails
  */
 export const getUserInfoFromToken = () => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('auth_token')
 
   if (token) {
     try {

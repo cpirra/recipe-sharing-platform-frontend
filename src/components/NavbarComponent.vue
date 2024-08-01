@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router'
 import { useUserStore } from '@/stores/userStore.js'
 import { ref } from 'vue'
+import AuthButtons from '@/components/Utils/AuthButtons.vue'
 import axios from 'axios'
 
 const userStore = useUserStore()
@@ -41,7 +42,9 @@ const fetchCategories = async () => {
 
 const searchRecipes = async (query) => {
   try {
-    const response = await axios.get(`https://localhost:7036/api/Elastisearch/search?query=${query}`)
+    const response = await axios.get(
+      `https://localhost:7036/api/Elastisearch/search?query=${query}`
+    )
     recipes.value = response.data // Update recipes with search results
   } catch (error) {
     console.error('Error searching recipes:', error)
@@ -50,10 +53,6 @@ const searchRecipes = async (query) => {
 
 const handleSearchInput = () => {
   searchRecipes(searchQuery.value)
-}
-
-const logout = () => {
-  userStore.logout()
 }
 
 const toggleDropdownCuisines = (value) => {
@@ -78,41 +77,92 @@ const toggleMenu = () => {
 <template>
   <nav class="p-4 bg-[#f8fafc] text-black navbar flex flex-wrap items-center justify-between">
     <div class="flex items-center justify-between w-full sm:w-auto">
-      <RouterLink to="/" class="mr-4"><img class="logo" src="../assets/images/logo.png" alt="Logo"></RouterLink>
+      <RouterLink to="/" class="mr-4"
+        ><img class="logo" src="../assets/images/logo.png" alt="Logo"
+      /></RouterLink>
       <button @click="toggleMenu" class="block sm:hidden">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
         </svg>
       </button>
     </div>
-    <div :class="{'block': showMenu, 'hidden': !showMenu}" class="w-full sm:flex sm:items-center sm:w-auto">
+    <div
+      :class="{ block: showMenu, hidden: !showMenu }"
+      class="w-full sm:flex sm:items-center sm:w-auto"
+    >
       <div class="flex flex-col sm:flex-row sm:items-center">
         <RouterLink to="/" class="mr-4 pr-4 pl-4">Home</RouterLink>
         <RouterLink to="/about" class="mr-4 pr-4 pl-4">About</RouterLink>
         <div class="relative">
-          <button @mouseenter="toggleDropdownCuisines(true)" @mouseleave="toggleDropdownCuisines(false)" class="mr-4 pr-4 pl-4 focus:outline-none">Cuisines</button>
-          <div v-if="showDropdownCuisines" @mouseenter="toggleDropdownCuisines(true)" @mouseleave="toggleDropdownCuisines(false)" class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-            <RouterLink v-for="cuisine in cuisines" :key="cuisine.id" :to="'/cuisines/' + cuisine.id" class="block px-4 py-2 text-black hover:bg-gray-200">
+          <button
+            @mouseenter="toggleDropdownCuisines(true)"
+            @mouseleave="toggleDropdownCuisines(false)"
+            class="mr-4 pr-4 pl-4 focus:outline-none"
+          >
+            Cuisines
+          </button>
+          <div
+            v-if="showDropdownCuisines"
+            @mouseenter="toggleDropdownCuisines(true)"
+            @mouseleave="toggleDropdownCuisines(false)"
+            class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10"
+          >
+            <RouterLink
+              v-for="cuisine in cuisines"
+              :key="cuisine.id"
+              :to="'/cuisines/' + cuisine.id"
+              class="block px-4 py-2 text-black hover:bg-gray-200"
+            >
               {{ cuisine.name }}
             </RouterLink>
           </div>
         </div>
         <div class="relative">
-          <button @mouseenter="toggleDropdownCategories(true)" @mouseleave="toggleDropdownCategories(false)" class="mr-4 pr-4 pl-4 focus:outline-none">Categories</button>
-          <div v-if="showDropdownCategories" @mouseenter="toggleDropdownCategories(true)" @mouseleave="toggleDropdownCategories(false)" class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-            <RouterLink v-for="category in categoriesData" :key="category.id" :to="'/categories/' + category.name.toLowerCase()" class="block px-4 py-2 text-black hover:bg-gray-200">
+          <button
+            @mouseenter="toggleDropdownCategories(true)"
+            @mouseleave="toggleDropdownCategories(false)"
+            class="mr-4 pr-4 pl-4 focus:outline-none"
+          >
+            Categories
+          </button>
+          <div
+            v-if="showDropdownCategories"
+            @mouseenter="toggleDropdownCategories(true)"
+            @mouseleave="toggleDropdownCategories(false)"
+            class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10"
+          >
+            <RouterLink
+              v-for="category in categoriesData"
+              :key="category.id"
+              :to="'/categories/' + category.name.toLowerCase()"
+              class="block px-4 py-2 text-black hover:bg-gray-200"
+            >
               {{ category.name }}
             </RouterLink>
           </div>
         </div>
       </div>
+      <AuthButtons />
       <div class="flex flex-col sm:flex-row sm:items-center mt-4 sm:mt-0">
-        <RouterLink v-if="!userStore.user" to="/login" class="mr-4 pr-4 pl-4">Login</RouterLink>
-        <div v-else class="user-logged-in flex gap-5 items-center">
-          <RouterLink :to="{ path: '/profile' }">
-            <img src="../assets/images/profile.png" alt="Profile Icon" class="profile-icon w-10 h-10 rounded-full" />
+        <div class="user-logged-in flex gap-5 items-center">
+          <RouterLink v-if="userStore.user" :to="{ path: '/profile' }">
+            <img
+              src="../assets/images/profile.png"
+              alt="Profile Icon"
+              class="profile-icon w-10 h-10 rounded-full"
+            />
           </RouterLink>
-          <button @click="logout" class="logout-button">Logout</button>
         </div>
         <input
           class="search-input mt-4 sm:mt-0 sm:ml-4"

@@ -9,16 +9,12 @@ const apiClient = axios.create({
 })
 
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('auth_token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
   return config
 })
-
-export const registerUser = (userData) => {
-  return apiClient.post('/User/register', userData)
-}
 
 export const loginUser = (userData) => {
   return apiClient.post('/User/login', userData)
@@ -39,6 +35,25 @@ export const getFavoriteRecipes = async () => {
     return response.data
   } catch (error) {
     console.error('Error fetching favorite recipes:', error)
+    throw error
+  }
+}
+
+export const registerToken = async (token) => {
+  try {
+    const response = await apiClient.post(
+      '/Sample/Register',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: '*/*'
+        }
+      }
+    )
+    return response.data
+  } catch (error) {
+    console.error('Error registering token:', error)
     throw error
   }
 }
