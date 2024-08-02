@@ -2,6 +2,9 @@
 import RandomRecipes from '@/components/Recipe/RandomRecipes.vue'
 import LatestRecipes from '@/components/Recipe/LatestRecipes.vue'
 import TrenyRecipes from '@/components/Recipe/TrendyRecipes.vue'
+import FavouritesRecipes from '@/components/Recipe/FavouritesRecipes.vue';
+import MostReviewsRecipes from '@/components/Recipe/MostReviewsRecipes.vue';
+import MostCommentsRecipe from '@/components/Recipe/MostCommentsRecipe.vue';
 </script>
 
 <template>
@@ -13,6 +16,9 @@ import TrenyRecipes from '@/components/Recipe/TrendyRecipes.vue'
     <!-- Use LatestRecipes Component with limit of 4 -->
     <LatestRecipes :limit="4" :showPagination="false" />
     <RandomRecipes :limit="4" :showPagination="false" />
+    <FavouritesRecipes/>
+    <MostReviewsRecipes/>
+    <MostCommentsRecipe/>
   </div>
 </template>
 
