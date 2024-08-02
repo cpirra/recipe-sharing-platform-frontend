@@ -42,7 +42,7 @@ export const getFavoriteRecipes = async () => {
 export const registerToken = async (token) => {
   try {
     const response = await apiClient.post(
-      '/Sample/Register',
+      '/User/register',
       {},
       {
         headers: {

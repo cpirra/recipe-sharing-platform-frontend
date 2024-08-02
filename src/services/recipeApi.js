@@ -1,4 +1,3 @@
-// src/services/recipeApi.js
 import client, { gql } from '../utils/apollo' // Ensure correct path and import
 
 const BASE_URL = 'https://localhost:7036/api'
@@ -86,7 +85,13 @@ export const fetchRecipeById = async (id) => {
 }
 
 export const fetchReviewsByRecipeId = async (id, page = 1, size = 5) => {
-  return await apiCall(`/Review/by-recipe/${id}?page=${page}&size=${size}`)
+  try {
+    const reviews = await apiCall(`/Review/by-recipe/${id}?page=${page}&size=${size}`)
+    return reviews || [] // Return an empty array if reviews are null
+  } catch (error) {
+    console.error('Error fetching reviews:', error)
+    return [] // Return an empty array in case of an error
+  }
 }
 
 export const submitReview = async (review) => {

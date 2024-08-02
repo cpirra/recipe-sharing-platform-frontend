@@ -9,19 +9,29 @@ const reviews = ref([])
 const page = ref(1)
 const size = ref(5)
 const loading = ref(false)
+const error = ref(null)
 const newReview = ref({
   comment: '',
-  rating: 0, // Initialize to 0 instead of null
+  rating: 0,
   recipeId: route.params.id
 })
 const submitting = ref(false)
 
 const fetchReviews = async () => {
   loading.value = true
-  const recipeId = route.params.id
-  const newReviews = await fetchReviewsByRecipeId(recipeId, page.value, size.value)
-  reviews.value = [...reviews.value, ...newReviews]
-  loading.value = false
+  error.value = null
+  try {
+    const recipeId = route.params.id
+    const newReviews = await fetchReviewsByRecipeId(recipeId, page.value, size.value)
+    if (newReviews.length === 0 && page.value === 1) {
+      error.value = 'No reviews available.'
+    }
+    reviews.value = [...reviews.value, ...newReviews]
+  } catch (err) {
+    error.value = 'Failed to fetch reviews.'
+  } finally {
+    loading.value = false
+  }
 }
 
 const loadMore = () => {
@@ -34,7 +44,7 @@ const submitNewReview = async () => {
   await submitReview(newReview.value)
   // Reset form
   newReview.value.comment = ''
-  newReview.value.rating = 0 // Reset to 0 instead of null
+  newReview.value.rating = 0
   // Refresh reviews
   reviews.value = []
   page.value = 1
@@ -50,7 +60,10 @@ onMounted(() => {
 <template>
   <div class="reviews mt-8">
     <h2 class="text-2xl font-bold mb-4">Reviews</h2>
-    <div v-if="reviews.length === 0 && !loading" class="text-gray-600">No reviews available.</div>
+    <div v-if="error" class="text-red-500 mb-4">{{ error }}</div>
+    <div v-if="reviews.length === 0 && !loading && !error" class="text-gray-600">
+      No reviews available.
+    </div>
     <div v-else>
       <div
         v-for="review in reviews"
