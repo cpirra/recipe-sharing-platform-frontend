@@ -1,26 +1,3 @@
-<template>
-  <div>
-    <h2 class="cuisine-title" v-if="!error">{{ cuisine.name }} Recipes: </h2>
-    <p v-if="error">{{ error }}</p>
-    <div v-if="recipes.length > 0">
-      <div class="recipe-grid">
-        <RecipeCard
-          v-for="recipe in recipes"
-          :key="recipe.id"
-          :id="recipe.id"
-          :imageUrls="recipe.imageUrls"
-          :categories="recipe.categories"
-          :cuisines="recipe.cuisines"
-          :name="recipe.name"
-        />
-      </div>
-    </div>
-    <div v-else>
-      <p>No recipes available for this cuisine.</p>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -43,8 +20,31 @@ watch(() => route.params.id, (newId) => {
     fetchCuisineDetails(id);
     fetchCuisineRecipes(id);
   }
-});
+}); 
 </script>
+
+<template>
+  <div>
+    <h2 class="cuisine-title" v-if="!error">{{ cuisine.name }} Recipes: </h2>
+    <p v-if="error">{{ error }}</p>
+    <div v-if="recipes.length > 0">
+      <div class="recipe-grid">
+        <RecipeCard
+          v-for="recipe in recipes"
+          :key="recipe.id"
+          :id="recipe.id"
+          :imageUrls="recipe.imageUrls"
+          :categories="recipe.categories"
+          :cuisines="recipe.cuisines"
+          :name="recipe.name"
+        />
+      </div>
+    </div>
+    <div v-else>
+      <p>No recipes available for this cuisine.</p>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .recipe-grid {

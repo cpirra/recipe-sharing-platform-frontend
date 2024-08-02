@@ -1,4 +1,6 @@
-import { ref} from 'vue';
+// src/composables/useCuisine.js
+import { ref } from 'vue';
+import { cuisineService } from '@/services/cuisineservice';
 
 export function useCuisine(cuisineId) {
   const cuisine = ref({});
@@ -7,11 +9,7 @@ export function useCuisine(cuisineId) {
 
   const fetchCuisineDetails = async (id) => {
     try {
-      const response = await fetch(`https://localhost:7036/api/Cuisine/${id}`);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch cuisine details: ${response.statusText}`);
-      }
-      cuisine.value = await response.json();
+      cuisine.value = await cuisineService.getCuisine(id);
     } catch (err) {
       error.value = err.message;
     }
@@ -19,11 +17,7 @@ export function useCuisine(cuisineId) {
 
   const fetchCuisineRecipes = async (id) => {
     try {
-      const response = await fetch(`https://localhost:7036/api/TopRecipe/leatest-cusine/${id}?page=1&pageSize=12`);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch cuisine recipes: ${response.statusText}`);
-      }
-      recipes.value = await response.json();
+      recipes.value = await cuisineService.getCuisineRecipes(id);
     } catch (err) {
       error.value = err.message;
     }
