@@ -10,7 +10,7 @@ export default {
 
 <template>
   <div class="about-us">
-    <h1 class="about-title"><strong>About Us</strong></h1>
+    <h1 class="about-name"><strong>About Us</strong></h1>
     <section class="intro">
       <p>
         Welcome to <strong>{{ platformName }}</strong>, where culinary creativity meets community! We are passionate food enthusiasts committed to creating a space where everyone, from seasoned chefs to home cooks, can share their love for food. Our mission is to inspire, connect, and empower food lovers around the world through the joy of cooking and sharing recipes.

@@ -7,7 +7,7 @@ const commentedRecipes = ref([]) // For commented recipes
 
 const fetchCommentedRecipes = async () => {
   try {
-    const response = await axios.get('https://localhost:7036/api/TopRecipe/top-by-comments?page=1&pageSize=4')
+    const response = await axios.get('https://localhost:7036/api/TopRecipe/top-by-reviews?page=1&pageSize=4')
     console.log(response.data); // Check the data structure here
     commentedRecipes.value = response.data.slice(0, 4) // Limit to 4 recipes
   } catch (error) {
@@ -23,13 +23,13 @@ onMounted(() => {
 <template>
   <div>
     <!-- COMMENTED RECIPE LISTING -->
-    <h1 class="heading-title">Most Commented Recipes</h1>
+    <h1 class="heading-name">Most Commented Recipes</h1>
     <div class="recipe-list">
       <RecipeCard
         v-for="recipe in commentedRecipes"
         :key="recipe.id"
         :id="recipe.id"
-        :title="recipe.name"
+        :name="recipe.name"
         :image="recipe.imageUrls"
         :categories="recipe.categories || []"
         :cuisines="recipe.cuisines || []"
@@ -81,7 +81,7 @@ onMounted(() => {
   padding: 2% 10%;
 }
 
-.heading-title {
+.heading-name {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,5 +1,4 @@
 const recipeViews = {
-  RecipeList: 'RecipeListView.vue',
   RecipeForm: 'RecipeForm.vue',
   RecipeFavourites: 'RecipeFavouritesView.vue',
   RecipeLatest: 'RecipeLatestView.vue',
@@ -10,7 +9,6 @@ const recipeViews = {
 };
 
 const routes = [
-  { path: '/recipes', name: 'RecipeList' },
   { path: '/recipes/new', name: 'RecipeForm' },
   { path: '/recipes/favourites', name: 'RecipeFavourites' },
   { path: '/recipes/latest', name: 'RecipeLatest' },

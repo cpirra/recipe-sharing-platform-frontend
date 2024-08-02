@@ -23,13 +23,13 @@ onMounted(() => {
 <template>
   <div>
     <!-- TRENDY RECIPE LISTING -->
-    <h1 class="heading-title">Trendy Recipes</h1>
+    <h1 class="heading-name">Trendy Recipes</h1>
     <div class="recipe-list">
       <RecipeCard
         v-for="recipe in trendyRecipes"
         :key="recipe.id"
         :id="recipe.id"
-        :title="recipe.name"
+        :name="recipe.name"
         :image="recipe.imageUrls"
         :categories="recipe.categories || []"
         :cuisines="recipe.cuisines || []"
@@ -83,7 +83,7 @@ onMounted(() => {
   padding: 2% 10%;
 }
 
-.heading-title {
+.heading-name {
   display: flex;
   justify-content: center;
   align-items: center;
