@@ -1,7 +1,8 @@
 <script setup>
-import { defineProps, inject } from 'vue'
+import { defineProps } from 'vue'
 import { debounce } from '@/utils/debounce'
 import { useRouter } from 'vue-router'
+import { useFavorites } from '@/composables/useFavourites' // Import the useFavorites composable
 
 const props = defineProps({
   image: String,
@@ -11,14 +12,15 @@ const props = defineProps({
   id: Number
 })
 
-const favoriteStore = inject('favoriteStore')
+const { favoriteRecipes, loading, addFavorite, removeFavorite, isFavorite } = useFavorites() // Destructure the useFavorites composable
+
 const router = useRouter()
 
 const toggleFavorite = debounce((recipeId) => {
-  if (favoriteStore.isFavorite(recipeId)) {
-    favoriteStore.removeFavorite(recipeId)
+  if (isFavorite(recipeId)) {
+    removeFavorite(recipeId)
   } else {
-    favoriteStore.addFavorite(recipeId)
+    addFavorite(recipeId)
   }
 }, 300)
 
@@ -58,11 +60,11 @@ const goToRecipeDetail = () => {
         </div>
         <button
           @click.stop="toggleFavorite(id)"
-          :disabled="favoriteStore.loading"
+          :disabled="loading"
           :class="{
-            'text-red-500': favoriteStore.isFavorite(id),
-            'text-gray-500': !favoriteStore.isFavorite(id),
-            'cursor-not-allowed': favoriteStore.loading
+            'text-red-500': isFavorite(id),
+            'text-gray-500': !isFavorite(id),
+            'cursor-not-allowed': loading
           }"
           class="ml-auto transition-colors duration-300"
         >

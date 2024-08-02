@@ -11,7 +11,7 @@ const size = ref(5)
 const loading = ref(false)
 const newReview = ref({
   comment: '',
-  rating: null,
+  rating: 0, // Initialize to 0 instead of null
   recipeId: route.params.id
 })
 const submitting = ref(false)
@@ -34,7 +34,7 @@ const submitNewReview = async () => {
   await submitReview(newReview.value)
   // Reset form
   newReview.value.comment = ''
-  newReview.value.rating = null
+  newReview.value.rating = 0 // Reset to 0 instead of null
   // Refresh reviews
   reviews.value = []
   page.value = 1

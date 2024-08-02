@@ -6,7 +6,6 @@ import { useUserStore } from '../stores/userStore'
 
 // Import routes from other modules
 import recipeRoutes from './recipe'
-import authorizationRoutes from './authorization'
 import profileRoutes from './profile'
 import cuisines from './cuisines'
 import categories from './categories'
@@ -42,11 +41,7 @@ const router = createRouter({
     {
       path: '/auth',
       name: 'Auth',
-      component: () => import('../layouts/FullLayout.vue'),
-      children: [
-        // Spread the imported authorization routes
-        ...authorizationRoutes
-      ]
+      component: () => import('../layouts/FullLayout.vue')
     },
     // Catch-all route for handling undefined routes
     {
