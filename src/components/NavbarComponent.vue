@@ -142,13 +142,14 @@ const toggleMenu = () => {
             @mouseleave="toggleDropdownCategories(false)"
             class="absolute mt-2 w-48 bg-white rounded-md shadow-lg z-10"
           >
-          <RouterLink
-          v-for="category in categoriesData"
-          :key="category.id"
-          :to="'/categories/' + category.id"
-          class="block px-4 py-2 text-black hover:bg-gray-200">
-          {{ category.name }}
-        </RouterLink>
+            <RouterLink
+              v-for="category in categoriesData"
+              :key="category.id"
+              :to="'/categories/' + category.name.toLowerCase()"
+              class="block px-4 py-2 text-black hover:bg-gray-200"
+            >
+              {{ category.name }}
+            </RouterLink>
           </div>
         </div>
       </div>
