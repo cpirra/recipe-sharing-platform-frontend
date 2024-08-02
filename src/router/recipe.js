@@ -10,6 +10,12 @@ export default [
     component: () => import('../views/recipe/RecipeForm.vue')
     // meta: { requiresAuth: true }
   },
+
+  {
+    path: '/edit-recipe/:id',
+    name: 'EditRecipe',
+    component: () => import('../components/Recipe/EditRecipe.vue')
+  },
   {
     path: '/recipes/favourites',
     name: 'RecipeFavourites',
@@ -31,6 +37,7 @@ export default [
   {
     path: '/recipes/:id',
     name: 'RecipeDetails',
-    component: () => import('../views/recipe/RecipeDetailView.vue')
+    component: () => import('../views/recipe/RecipeDetailView.vue'),
+    props: true
   }
 ]

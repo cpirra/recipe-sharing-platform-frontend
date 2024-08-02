@@ -1,13 +1,17 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { useRecipeStore } from '@/stores/recipeStore'
 import {
   fetchCategories,
   fetchCuisines,
-  postRecipeCategory,
-  postRecipeCuisine
+  fetchRecipeById,
+  updateRecipeCategory,
+  updateRecipeCuisine,
+  updateRecipe
 } from '@/services/recipeApi'
 
+const route = useRoute()
 const store = useRecipeStore()
 
 // Step management
@@ -45,6 +49,9 @@ const nutritionalInfo = ref({
 const categories = ref([])
 const cuisines = ref([])
 
+// Recipe ID
+const recipeId = ref(route.params.id)
+
 // Fetch Categories and Cuisines
 const fetchCategoriesAndCuisines = async () => {
   try {
@@ -59,29 +66,39 @@ const fetchCategoriesAndCuisines = async () => {
   }
 }
 
-onMounted(() => {
-  fetchCategoriesAndCuisines()
-})
+// Fetch Recipe Data
+const fetchRecipeData = async (id) => {
+  try {
+    const recipeData = await fetchRecipeById(id)
+    generalInfo.value = {
+      name: recipeData.name,
+      description: recipeData.description,
+      imageUrls: recipeData.imageUrls,
+      videoUrls: recipeData.videoUrls,
+      category: recipeData.category.name,
+      cuisine: recipeData.cuisine.name
+    }
+    ingredients.value = recipeData.ingredients.map((ingredient) => ({
+      ...ingredient,
+      recipeId: recipeData.id
+    }))
+    instructions.value = recipeData.instructions.map((instruction) => ({
+      ...instruction,
+      recipeId: recipeData.id
+    }))
+    nutritionalInfo.value = {
+      ...recipeData.nutritionalInfo,
+      recipeId: recipeData.id
+    }
+    recipeId.value = recipeData.id
+  } catch (error) {
+    console.error('Error fetching recipe data:', error)
+  }
+}
 
 // Handle Next Step
-const nextStep = async () => {
-  if (step.value === 1) {
-    // Post general info to get recipeId
-    const response = await store.postGeneralInfo(generalInfo.value)
-    const recipeId = response // Adjust based on actual response structure
-
-    // Ensure the response contains the recipe ID
-    if (recipeId) {
-      // Assign recipeId to other objects
-      ingredients.value.forEach((ingredient) => (ingredient.recipeId = recipeId))
-      instructions.value.forEach((instruction) => (instruction.recipeId = recipeId))
-      nutritionalInfo.value.recipeId = recipeId
-      generalInfo.value.recipeId = recipeId
-    } else {
-      console.error('Recipe ID is missing in the response')
-    }
-    step.value++
-  }
+const nextStep = () => {
+  step.value++
 }
 
 // Handle Previous Step
@@ -92,54 +109,28 @@ const previousStep = () => {
 // Handle Final Submit
 const handleFinalSubmit = async () => {
   try {
-    // Submit ingredients
-    for (const ingredient of ingredients.value) {
-      await store.postIngredients(ingredient)
-    }
-    // Submit instructions
-    for (const instruction of instructions.value) {
-      await store.postInstructions(instruction)
-    }
-    // Submit nutritional info
-    await store.postNutritionalInfo(nutritionalInfo.value)
+    // Submit updated recipe
+    await updateRecipe(recipeId.value, {
+      ...generalInfo.value,
+      ingredients: ingredients.value,
+      instructions: instructions.value,
+      nutritionalInfo: nutritionalInfo.value
+    })
 
-    // Include category and cuisine in the submission
-    await postRecipeCategory({
-      recipeId: generalInfo.value.recipeId,
+    // Update category and cuisine
+    await updateRecipeCategory({
+      recipeId: recipeId.value,
       categoryId: categories.value.find((cat) => cat.name === generalInfo.value.category).id
     })
 
-    await postRecipeCuisine({
-      recipeId: generalInfo.value.recipeId,
+    await updateRecipeCuisine({
+      recipeId: recipeId.value,
       cuisineId: cuisines.value.find((cui) => cui.name === generalInfo.value.cuisine).id
     })
 
-    alert('Recipe submitted successfully!')
-
-    // Reset form after final submission
-    step.value = 1
-    generalInfo.value = {
-      name: '',
-      description: '',
-      imageUrls: '',
-      videoUrls: '',
-      category: '',
-      cuisine: ''
-    }
-    ingredients.value = [{ name: '', quantity: '', recipeId: null }]
-    instructions.value = [{ stepNumber: 1, description: '', recipeId: null }]
-    nutritionalInfo.value = {
-      calories: 0,
-      fat: 0,
-      carbohydrates: 0,
-      protein: 0,
-      sugar: 0,
-      fiber: 0,
-      sodium: 0,
-      recipeId: null
-    }
+    alert('Recipe updated successfully!')
   } catch (error) {
-    console.error('Error submitting recipe:', error)
+    console.error('Error updating recipe:', error)
   }
 }
 
@@ -166,8 +157,13 @@ const addInstruction = () => {
 const removeInstruction = (index) => {
   instructions.value.splice(index, 1)
 }
-</script>
 
+// Fetch initial data
+onMounted(() => {
+  fetchCategoriesAndCuisines()
+  fetchRecipeData(recipeId.value)
+})
+</script>
 <template>
   <div class="recipe-form max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg">
     <div v-if="step === 1">

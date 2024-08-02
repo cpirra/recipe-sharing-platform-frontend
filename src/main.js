@@ -4,6 +4,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { createAuth0 } from '@auth0/auth0-vue'
+import { provideApolloClient } from '@vue/apollo-composable'
+import client from '@/utils/apollo'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -22,5 +24,6 @@ app.use(
     }
   })
 )
+provideApolloClient(client)
 
 app.mount('#app')
