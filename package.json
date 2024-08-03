@@ -16,6 +16,7 @@
     "@auth0/auth0-vue": "^2.3.3",
     "@headlessui/vue": "^1.7.22",
     "@heroicons/vue": "^2.1.5",
+    "@microsoft/signalr": "^8.0.7",
     "@vue/apollo-composable": "^4.0.2",
     "axios": "^1.7.2",
     "graphql": "^16.9.0",
