@@ -20,7 +20,7 @@
     "axios": "^1.7.2",
     "graphql": "^16.9.0",
     "jwt-decode": "^4.0.0",
-    "pinia": "^2.1.7",
+    "pinia": "^2.2.0",
     "vue": "^3.4.29",
     "vue-jwt-decode": "^0.1.0",
     "vue-router": "^4.3.3"
