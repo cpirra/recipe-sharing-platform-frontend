@@ -1,4 +1,3 @@
-// stores/recipeStore.js
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
@@ -53,6 +52,55 @@ export const useRecipeStore = defineStore('recipe', {
         await axiosInstance.post('NutritionalInfo', data)
       } catch (error) {
         console.error('Error posting nutritional info:', error)
+        throw error
+      }
+    },
+    async updateRecipe(id, data) {
+      try {
+        const response = await axiosInstance.put(`Recipe/${id}`, data)
+        return response.data
+      } catch (error) {
+        console.error('Error updating recipe:', error)
+        throw error
+      }
+    },
+    async updateIngredients(id, data) {
+      try {
+        await axiosInstance.put(`Ingredient/${id}`, data)
+      } catch (error) {
+        console.error('Error updating ingredients:', error)
+        throw error
+      }
+    },
+    async updateInstructions(id, data) {
+      try {
+        await axiosInstance.put(`Instruction/${id}`, data)
+      } catch (error) {
+        console.error('Error updating instructions:', error)
+        throw error
+      }
+    },
+    async updateNutritionalInfo(id, data) {
+      try {
+        await axiosInstance.put(`NutritionalInfo/${id}`, data)
+      } catch (error) {
+        console.error('Error updating nutritional info:', error)
+        throw error
+      }
+    },
+    async updateRecipeCategory(data) {
+      try {
+        await axiosInstance.put('RecipeCategory', data)
+      } catch (error) {
+        console.error('Error updating recipe category:', error)
+        throw error
+      }
+    },
+    async updateRecipeCuisine(data) {
+      try {
+        await axiosInstance.put('RecipeCuisine', data)
+      } catch (error) {
+        console.error('Error updating recipe cuisine:', error)
         throw error
       }
     }
