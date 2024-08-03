@@ -1,20 +1,13 @@
-<template>
-  <div>
-    <h2 v-if="!error">{{ cuisine.name }}</h2>
-    <p v-if="error">{{ error }}</p>
-    <!-- Add more details as needed -->
-  </div>
-</template>
-
 <script setup>
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useCuisine } from '@/composables/useCuisine'; // Adjust the path as necessary
+import { useCuisine } from '@/composables/useCuisine';
+import RecipeCard from '@/components/Recipe/RecipeCard.vue';
 
 const route = useRoute();
-const cuisineId = ref(Number(route.params.id)); // Convert ID to number
+const cuisineId = ref(Number(route.params.id));
 
-const { cuisine, error, fetchCuisineDetails } = useCuisine(cuisineId.value);
+const { cuisine, recipes, error, fetchCuisineDetails, fetchCuisineRecipes } = useCuisine(cuisineId.value);
 
 watch(() => route.params.id, (newId) => {
   const id = Number(newId);
@@ -25,8 +18,49 @@ watch(() => route.params.id, (newId) => {
     error.value = null;
     cuisineId.value = id;
     fetchCuisineDetails(id);
+    fetchCuisineRecipes(id);
   }
-});
-
-console.log('Route parameter ID:', route.params.id);
+}); 
 </script>
+
+<template>
+  <div>
+    <h2 class="cuisine-title" v-if="!error">{{ cuisine.name }} Recipes: </h2>
+    <p v-if="error">{{ error }}</p>
+    <div v-if="recipes.length > 0">
+      <div class="recipe-grid">
+        <RecipeCard
+          v-for="recipe in recipes"
+          :key="recipe.id"
+          :id="recipe.id"
+          :imageUrls="recipe.imageUrls"
+          :categories="recipe.categories"
+          :cuisines="recipe.cuisines"
+          :name="recipe.name"
+        />
+      </div>
+    </div>
+    <div v-else>
+      <p>No recipes available for this cuisine.</p>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.recipe-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding-bottom: 4rem;
+}
+.cuisine-title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-size: 20px;
+  font-weight: bolder;
+  color: orangered;
+}
+</style>

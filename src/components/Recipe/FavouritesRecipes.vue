@@ -3,30 +3,30 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import RecipeCard from './RecipeCard.vue'
 
-const trendyRecipes = ref([]) // For trendy recipes
+const favoriteRecipes = ref([]) // For favorite recipes
 
-const fetchTrendyRecipes = async () => {
+const fetchFavoriteRecipes = async () => {
   try {
-    const response = await axios.get('https://localhost:7036/api/TopRecipe/trendy?count=4')
+    const response = await axios.get('https://localhost:7036/api/TopRecipe/top-by-favorite?page=1&pageSize=4')
     console.log(response.data); // Check the data structure here
-    trendyRecipes.value = response.data.slice(0, 4) // Limit to 4 recipes
+    favoriteRecipes.value = response.data.slice(0, 4) // Limit to 4 recipes
   } catch (error) {
-    console.error('Error fetching trendy recipes:', error)
+    console.error('Error fetching favorite recipes:', error)
   }
 }
 
 onMounted(() => {
-  fetchTrendyRecipes()
+  fetchFavoriteRecipes()
 })
 </script>
 
 <template>
   <div>
-    <!-- TRENDY RECIPE LISTING -->
-    <h1 class="heading-name">Trendy Recipes</h1>
+    <!-- FAVORITE RECIPE LISTING -->
+    <h1 class="heading-name">Favorite Recipes</h1>
     <div class="recipe-list">
       <RecipeCard
-        v-for="recipe in trendyRecipes"
+        v-for="recipe in favoriteRecipes"
         :key="recipe.id"
         :id="recipe.id"
         :name="recipe.name"
@@ -36,7 +36,7 @@ onMounted(() => {
         :description="recipe.description"
       />
     </div>
-    <RouterLink to="/recipes/trendy">
+    <RouterLink to="/recipes/favourites">
       <div class="flex items-center justify-center">
         <button class="btn">Explore</button>
       </div>
@@ -76,10 +76,8 @@ onMounted(() => {
 }
 
 .recipe-list {
-  display: flex;
-  flex-wrap: wrap;
+  @apply flex flex-row flex-wrap justify-around items-center content-stretch;
   gap: 16px;
-  justify-content: space-around;
   padding: 2% 10%;
 }
 

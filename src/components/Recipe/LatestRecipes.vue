@@ -27,7 +27,7 @@ const fetchLatestRecipes = async (page = 1) => {
     if (Array.isArray(response.data)) {
       latestRecipes.value = response.data.map(recipe => ({
         id: recipe.id,
-        title: recipe.name, // Map name to title
+        name: recipe.name, // Map name to name
         image: recipe.imageUrls, // Map imageUrls to image
         categories: recipe.categories || [], // Ensure categories is an array
         cuisines: recipe.cuisines || [], // Ensure cuisines is an array
@@ -60,13 +60,13 @@ onMounted(() => {
 <template>
   <div>
     <!-- LATEST RECIPE LISTING -->
-    <h1 class="heading-title">Latest Recipes</h1>
+    <h1 class="heading-name">Latest Recipes</h1>
     <div class="recipe-list">
       <RecipeCard
         v-for="recipe in latestRecipes"
         :key="recipe.id"
         :id="recipe.id"
-        :title="recipe.title"
+        :name="recipe.name"
         :image="recipe.image"
         :categories="recipe.categories"
         :cuisines="recipe.cuisines"
@@ -138,7 +138,7 @@ onMounted(() => {
   color:black;
 }
 
-.heading-title {
+.heading-name {
   display: flex;
   justify-content: center;
   align-items: center;
