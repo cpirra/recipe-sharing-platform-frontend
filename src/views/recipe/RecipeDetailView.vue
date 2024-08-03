@@ -1,3 +1,28 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { fetchRecipeById } from '@/services/recipeApi'
+import Reviews from '@/components/Recipe/RecipeReview.vue'
+import ReportRecipe from '@/components/Recipe/RecipeReport.vue' // Import the ReportRecipe component
+
+const route = useRoute()
+const router = useRouter()
+const recipe = ref(null)
+
+const fetchRecipe = async (id) => {
+  recipe.value = await fetchRecipeById(id)
+}
+
+const goBack = () => {
+  router.push('/')
+}
+
+onMounted(() => {
+  const id = route.params.id
+  fetchRecipe(id)
+})
+</script>
+
 <template>
   <div
     v-if="recipe"
@@ -68,6 +93,10 @@
     <div class="reviews-section p-6 border-t mt-8">
       <Reviews />
     </div>
+    <div class="report-section p-6 border-t mt-8">
+      <ReportRecipe :recipeId="recipe.id" :reporterId="1" />
+      <!-- Pass the actual reporter ID -->
+    </div>
   </div>
   <div v-else class="text-center p-6">
     <svg
@@ -94,30 +123,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { fetchRecipeById } from '@/services/recipeApi'
-import Reviews from '@/components/Recipe/RecipeReview.vue'
-
-const route = useRoute()
-const router = useRouter()
-const recipe = ref(null)
-
-const fetchRecipe = async (id) => {
-  recipe.value = await fetchRecipeById(id)
-}
-
-const goBack = () => {
-  router.push('/')
-}
-
-onMounted(() => {
-  const id = route.params.id
-  fetchRecipe(id)
-})
-</script>
-
 <style scoped>
 .recipe-detail {
   max-width: 800px;
@@ -136,6 +141,9 @@ onMounted(() => {
   padding: 1.5rem;
 }
 .reviews-section {
+  background-color: #f9fafb; /* light gray background to distinguish */
+}
+.report-section {
   background-color: #f9fafb; /* light gray background to distinguish */
 }
 </style>

@@ -9,6 +9,7 @@ import recipeRoutes from './recipe'
 import profileRoutes from './profile'
 import cuisines from './cuisines'
 import categories from './categories'
+import AdminView from '@/views/general/AdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,7 +36,12 @@ const router = createRouter({
         profileRoutes,
         // Dynamic routes for cuisines and categories
         ...cuisines,
-        ...categories
+        ...categories,
+        {
+          path: '/admin',
+          name: 'AdminDashboard',
+          component: AdminView
+        }
       ]
     },
     {
