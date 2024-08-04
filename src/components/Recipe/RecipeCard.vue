@@ -3,6 +3,7 @@ import { defineProps } from 'vue'
 import { debounce } from '@/utils/debounce'
 import { useRouter } from 'vue-router'
 import { useFavorites } from '@/composables/useFavourites'
+import { useToast } from 'vue-toastification'
 
 const props = defineProps({
   imageUrls: String,
@@ -15,12 +16,15 @@ const props = defineProps({
 const { favoriteRecipes, loading, addFavorite, removeFavorite, isFavorite } = useFavorites()
 
 const router = useRouter()
+const toast = useToast()
 
 const toggleFavorite = debounce((recipeId) => {
   if (isFavorite(recipeId)) {
     removeFavorite(recipeId)
+    toast.success('Recipe removed from favorites!')
   } else {
     addFavorite(recipeId)
+    toast.success('Recipe added to favorites!')
   }
 }, 300)
 
