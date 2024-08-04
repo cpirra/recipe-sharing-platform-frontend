@@ -56,8 +56,8 @@ const handleSearchInput = () => {
 
 
 <template>
-  <nav class="p-4 bg-[#f8fafc] text-black navbar flex flex-wrap items-center justify-between">
-    <div class="flex items-center justify-between w-full sm:w-auto">
+  <nav class="p-4 bg-[#f8fafc] text-black navbar flex flex-wrap  direction-column" >
+    <div class="flex items-center  w-full sm:w-auto ">
       <RouterLink to="/" class="mr-4">
         <img class="logo" src="../assets/images/logo.png" alt="Logo" />
       </RouterLink>
@@ -99,13 +99,16 @@ const handleSearchInput = () => {
           <img src="../assets/images/profile.png" alt="Profile Icon" class="profile-icon w-10 h-10 rounded-full" />
         </RouterLink>
       </div>
-      <input
+      <div class="search">
+        <input
         v-model="searchQuery"
         @input="handleSearchInput"
         class="search-input mt-4 sm:mt-0 sm:ml-4"
         type="text"
         placeholder="Search..."
       />
+      </div>
+      
     </div>
     </div>
   </nav>
@@ -116,16 +119,30 @@ const handleSearchInput = () => {
 .navbar {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  position: sticky;
+  top: 0; /* Stick to the top of the viewport */
+  width: 100%;
+  z-index: 1000; /* Ensure it stays on top of other content */
 }
 .logo {
-  width: 50px;
+  width: 3.5rem;
   height: auto;
 }
 .search-input {
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
+}
+.search{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+.search img{
+  height: 2rem;
 }
 .logout-button {
   @apply bg-red-500 text-white px-4 py-2 rounded;
@@ -134,6 +151,7 @@ const handleSearchInput = () => {
   .navbar {
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
   }
   .navbar div {
     width: auto;

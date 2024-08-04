@@ -29,6 +29,9 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="catgeoriesBanner">
+    <img style="width: 100%;" src="https://101truedigitalpark.com/assets/new/img/header/food-category.jpg" alt="">
+  </div>
   <div>
     <h2 class="category-title" v-if="!error && recipes.length > 0">{{ categoryName }} Recipes:</h2>
     <p v-if="error">{{ error }}</p>
@@ -53,6 +56,12 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.catgeoriesBanner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 .recipe-grid {
   display: flex;
   flex-wrap: wrap;
@@ -67,6 +76,6 @@ onMounted(() => {
   padding: 2rem;
   font-size: 20px;
   font-weight: bolder;
-  color: orangered;
+  color: black;
 }
 </style>

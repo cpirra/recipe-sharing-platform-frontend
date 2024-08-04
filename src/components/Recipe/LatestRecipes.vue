@@ -106,10 +106,10 @@ onMounted(() => {
   font-weight: 400;
   font-size: 14px;
   color: #ffffff;
-  background: linear-gradient(90deg, #e76f51 0%, #e76f51 100%);
+  background: linear-gradient(90deg, black 0%, black 100%);
   padding: 10px 30px;
-  border: solid #e76f51 2px;
-  box-shadow: rgb(231, 111, 81) 4px 5px 47px 4px;
+  border: solid black 2px;
+  box-shadow: black 4px 5px 47px 4px;
   border-radius: 50px;
   transition: 1000ms;
   transform: translateY(0);
@@ -124,9 +124,9 @@ onMounted(() => {
   transition: 1000ms;
   padding: 10px 50px;
   transform: translateY(-2px);
-  background: linear-gradient(90deg, #e76f51 0%, #e76f51 100%);
+  background: linear-gradient(90deg, black 0%, black 100%);
   color: #ffffff;
-  border: solid 2px #e76f51;
+  border: solid 2px black;
 }
 
 .recipe-list {
@@ -145,7 +145,7 @@ onMounted(() => {
   padding-top: 1rem;
   font-size: 20px;
   font-weight: bolder;
-  color: orangered;
+  color: black;
 }
 
 .pagination {
