@@ -23,7 +23,7 @@
 <script setup>
 import { useUserStore } from '@/stores/userStore'
 import UserFavourites from '@/components/User/UserFavourites.vue'
-import UserCreatedRecipes from '@/components/User/UserRecipes.vue'
+import UserCreatedRecipes from '@/components/User/UserCreatedRecipes.vue'
 
 const userStore = useUserStore()
 const userName = userStore.getUser?.username // Use the getter for user
