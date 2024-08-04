@@ -1,6 +1,72 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { fetchRecipeById } from '@/utils/apollo'
+import Reviews from '@/components/Recipe/RecipeReview.vue'
+import ReportRecipe from '@/components/Recipe/RecipeReport.vue'
+import ShareButton from '@/components/Utils/ShareButton.vue' // Import the ShareButton component
+
+const route = useRoute()
+const router = useRouter()
+const recipe = ref(null)
+const loading = ref(true)
+const errorMessage = ref(null)
+const id = String(route.params.id) // Ensure id is a string
+
+const fetchRecipe = async (id) => {
+  try {
+    recipe.value = await fetchRecipeById(id)
+    if (!recipe.value) {
+      errorMessage.value = 'Recipe not found.'
+    }
+  } catch (error) {
+    console.error('Error fetching recipe:', error)
+    errorMessage.value = 'An error occurred while fetching the recipe.'
+  } finally {
+    loading.value = false
+  }
+}
+
+const goBack = () => {
+  router.push('/')
+}
+
+onMounted(() => {
+  fetchRecipe(id)
+})
+</script>
+
 <template>
+  <div v-if="loading" class="text-center p-6">
+    <svg
+      class="animate-spin h-8 w-8 text-gray-600 mx-auto mb-4"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        class="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        stroke-width="4"
+      ></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+      ></path>
+    </svg>
+    <p>Loading...</p>
+  </div>
+
+  <div v-if="!loading && errorMessage" class="text-center p-6 text-red-500">
+    <p>{{ errorMessage }}</p>
+  </div>
+
   <div
-    v-if="recipe"
+    v-if="!loading && !errorMessage && recipe"
     class="recipe-detail max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-8"
   >
     <img :src="recipe.imageUrls" alt="Recipe Image" class="w-full h-64 object-cover" />
@@ -55,68 +121,26 @@
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Author</h2>
         <p>
-          <a :href="'mailto:' + recipe.user.email" class="text-blue-500">{{
-            recipe.user.username
-          }}</a>
+          <a :href="'mailto:' + recipe.user.email" class="text-blue-500">{{ recipe.user.username }}</a>
         </p>
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Video</h2>
         <video :src="recipe.videoUrls" controls class="w-full"></video>
       </div>
+      <div class="mb-4">
+        <ShareButton :recipeId="id" :recipeTitle="recipe.name" />
+      </div>
     </div>
     <div class="reviews-section p-6 border-t mt-8">
       <Reviews />
     </div>
-  </div>
-  <div v-else class="text-center p-6">
-    <svg
-      class="animate-spin h-8 w-8 text-gray-600 mx-auto mb-4"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <circle
-        class="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        stroke-width="4"
-      ></circle>
-      <path
-        class="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-      ></path>
-    </svg>
-    <p>Loading...</p>
+    <div class="report-section p-6 border-t mt-8">
+      <ReportRecipe :recipeId="recipe.id" :reporterId="1" />
+      <!-- Pass the actual reporter ID -->
+    </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { fetchRecipeById } from '@/services/recipeApi'
-import Reviews from '@/components/Recipe/RecipeReview.vue'
-
-const route = useRoute()
-const router = useRouter()
-const recipe = ref(null)
-
-const fetchRecipe = async (id) => {
-  recipe.value = await fetchRecipeById(id)
-}
-
-const goBack = () => {
-  router.push('/')
-}
-
-onMounted(() => {
-  const id = route.params.id
-  fetchRecipe(id)
-})
-</script>
 
 <style scoped>
 .recipe-detail {
@@ -136,6 +160,9 @@ onMounted(() => {
   padding: 1.5rem;
 }
 .reviews-section {
+  background-color: #f9fafb; /* light gray background to distinguish */
+}
+.report-section {
   background-color: #f9fafb; /* light gray background to distinguish */
 }
 </style>
