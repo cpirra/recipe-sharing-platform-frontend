@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 import { fetchCuisines, fetchCategories } from '@/services/navApi';
 import { useRouter } from 'vue-router';
@@ -52,6 +52,20 @@ const toggleMenu = () => {
 const handleSearchInput = () => {
   router.push({ path: '/', query: { search: searchQuery.value } });
 };
+
+// Periodically check for token changes
+let tokenCheckInterval;
+
+onMounted(() => {
+  userStore.checkToken(); // Initial check
+  tokenCheckInterval = setInterval(() => {
+    userStore.checkToken();
+  }, 1000); // Check every second
+});
+
+onUnmounted(() => {
+  clearInterval(tokenCheckInterval);
+});
 </script>
 
 <template>

@@ -1,4 +1,3 @@
-// src/stores/userStore.js
 import { defineStore } from 'pinia';
 import { getUserInfoFromToken } from '../utils/authUtils';
 
@@ -41,6 +40,16 @@ export const useUserStore = defineStore('user', {
       this.userId = null;
       this.token = null;
       localStorage.removeItem('auth_token');
-    }
-  }
+    },
+    checkToken() {
+      const token = localStorage.getItem('auth_token');
+      if (token) {
+        if (token !== this.token) {
+          this.setToken(token);
+        }
+      } else {
+        this.logout();
+      }
+    },
+  },
 });
