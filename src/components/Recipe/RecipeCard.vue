@@ -2,17 +2,17 @@
 import { defineProps } from 'vue'
 import { debounce } from '@/utils/debounce'
 import { useRouter } from 'vue-router'
-import { useFavorites } from '@/composables/useFavourites' // Import the useFavorites composable
+import { useFavorites } from '@/composables/useFavourites'
 
 const props = defineProps({
-  image: String,
+  imageUrls: String,
   categories: Array,
   cuisines: Array,
-  title: String,
+  name: String,
   id: Number
 })
 
-const { favoriteRecipes, loading, addFavorite, removeFavorite, isFavorite } = useFavorites() // Destructure the useFavorites composable
+const { favoriteRecipes, loading, addFavorite, removeFavorite, isFavorite } = useFavorites()
 
 const router = useRouter()
 
@@ -35,7 +35,7 @@ const goToRecipeDetail = () => {
     class="recipe-card border rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-105"
   >
     <img
-      :src="image"
+      :src="imageUrls"
       alt="Recipe Image"
       class="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-80"
     />
@@ -75,7 +75,7 @@ const goToRecipeDetail = () => {
           </svg>
         </button>
       </div>
-      <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ title }}</h3>
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ name }}</h3>
     </div>
   </div>
 </template>

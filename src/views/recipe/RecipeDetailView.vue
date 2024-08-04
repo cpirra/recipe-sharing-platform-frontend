@@ -1,52 +1,30 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { fetchRecipeById } from '@/services/recipeApi'
-import Reviews from '@/components/Recipe/RecipeReview.vue'
-
-const route = useRoute()
-const router = useRouter()
-const recipe = ref(null)
-
-const fetchRecipe = async (id) => {
-  recipe.value = await fetchRecipeById(id)
-}
-
-const goBack = () => {
-  router.push('/')
-}
-
-onMounted(() => {
-  const id = route.params.id
-  fetchRecipe(id)
-})
-</script>
-
 <template>
   <div
     v-if="recipe"
     class="recipe-detail max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-8"
   >
-    <img :src="recipe.imageUrl" alt="Recipe Image" class="w-full h-64 object-cover" />
+    <img :src="recipe.imageUrls" alt="Recipe Image" class="w-full h-64 object-cover" />
     <div class="p-6">
       <button @click="goBack" class="text-blue-500 mb-4">← Back to Recipes</button>
       <h1 class="text-3xl font-bold mb-2">{{ recipe.name }}</h1>
       <p class="text-gray-700 mb-4">{{ recipe.description }}</p>
       <div class="flex flex-wrap mb-4">
         <span
-          v-for="category in recipe.categories"
+          v-for="category in recipe.categoryDetails"
           :key="category.id"
           class="bg-blue-200 text-blue-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded"
-          >{{ category.name }}</span
         >
+          {{ category.name }}
+        </span>
       </div>
       <div class="flex flex-wrap mb-4">
         <span
-          v-for="cuisine in recipe.cuisines"
+          v-for="cuisine in recipe.cuisineDetails"
           :key="cuisine.id"
           class="bg-green-200 text-green-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded"
-          >{{ cuisine.name }}</span
         >
+          {{ cuisine.name }}
+        </span>
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Ingredients</h2>
@@ -84,10 +62,9 @@ onMounted(() => {
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Video</h2>
-        <video :src="recipe.videoUrl" controls class="w-full"></video>
+        <video :src="recipe.videoUrls" controls class="w-full"></video>
       </div>
     </div>
-    <!-- Separate reviews section -->
     <div class="reviews-section p-6 border-t mt-8">
       <Reviews />
     </div>
@@ -116,6 +93,30 @@ onMounted(() => {
     <p>Loading...</p>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { fetchRecipeById } from '@/services/recipeApi'
+import Reviews from '@/components/Recipe/RecipeReview.vue'
+
+const route = useRoute()
+const router = useRouter()
+const recipe = ref(null)
+
+const fetchRecipe = async (id) => {
+  recipe.value = await fetchRecipeById(id)
+}
+
+const goBack = () => {
+  router.push('/')
+}
+
+onMounted(() => {
+  const id = route.params.id
+  fetchRecipe(id)
+})
+</script>
 
 <style scoped>
 .recipe-detail {

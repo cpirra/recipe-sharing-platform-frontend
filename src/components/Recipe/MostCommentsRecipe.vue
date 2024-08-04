@@ -3,32 +3,32 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import RecipeCard from './RecipeCard.vue'
 
-const trendyRecipes = ref([]) // For trendy recipes
+const commentedRecipes = ref([]) // For commented recipes
 
-const fetchTrendyRecipes = async () => {
+const fetchCommentedRecipes = async () => {
   try {
-    const response = await axios.get('https://localhost:7036/api/TopRecipe/trendy?count=4')
+    const response = await axios.get('https://localhost:7036/api/TopRecipe/top-by-reviews?page=1&pageSize=4')
     console.log(response.data); // Check the data structure here
-    trendyRecipes.value = response.data.slice(0, 3) // Limit to 4 recipes
+    commentedRecipes.value = response.data.slice(0, 3) // Limit to 4 recipes
   } catch (error) {
-    console.error('Error fetching trendy recipes:', error)
+    console.error('Error fetching commented recipes:', error)
   }
 }
 
 onMounted(() => {
-  fetchTrendyRecipes()
+  fetchCommentedRecipes()
 })
 </script>
 
 <template>
   <div>
-    <!-- TRENDY RECIPE LISTING -->
-    <RouterLink to="/recipes/trendy">
-      <h1 class="heading-name">Trendy Recipes</h1>
+    <!-- COMMENTED RECIPE LISTING -->
+    <RouterLink to="/recipes/commented">
+      <h1 class="heading-name">Most Commented Recipes</h1>
     </RouterLink>
     <div class="recipe-list">
       <RecipeCard
-        v-for="recipe in trendyRecipes"
+        v-for="recipe in commentedRecipes"
         :key="recipe.id"
         :id="recipe.id"
         :name="recipe.name"
@@ -41,4 +41,5 @@ onMounted(() => {
     
   </div>
 </template>
+
 

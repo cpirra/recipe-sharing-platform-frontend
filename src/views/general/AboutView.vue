@@ -10,7 +10,7 @@ export default {
 
 <template>
   <div class="about-us">
-    <h1 class="about-title"><strong>About Us</strong></h1>
+    <h1 class="about-name"><strong>About Us</strong></h1>
     <section class="intro">
       <p>
         Welcome to <strong>{{ platformName }}</strong>, where culinary creativity meets community! We are passionate food enthusiasts committed to creating a space where everyone, from seasoned chefs to home cooks, can share their love for food. Our mission is to inspire, connect, and empower food lovers around the world through the joy of cooking and sharing recipes.
@@ -48,6 +48,18 @@ export default {
       </p>
     </section>
   </div>
+  <section class="contact-us">
+      <h2><strong>Visit Us</strong></h2>
+      <div class="map-container flex justify-center align-center">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2937.6214117319914!2d21.12840267652386!3d42.58455752088829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13549d539fe9170f%3A0x96a018472c30145!2sGjirafa%2C%20Inc!5e0!3m2!1sen!2s!4v1722722815034!5m2!1sen!2s" 
+        width="80%" 
+        height="auto" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
 </template>
 
 <style scoped>
@@ -81,5 +93,11 @@ ul li {
 
 strong {
   color: #000;
+}
+
+.map-container {
+  margin-top: 20px;
+  text-align: center;
+  padding: 2rem;
 }
 </style>

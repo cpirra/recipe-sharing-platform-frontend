@@ -1,4 +1,3 @@
-// src/services/userApi.js
 import axios from 'axios'
 
 const apiClient = axios.create({
@@ -42,7 +41,7 @@ export const getFavoriteRecipes = async () => {
 export const registerToken = async (token) => {
   try {
     const response = await apiClient.post(
-      '/Sample/Register',
+      '/User/register',
       {},
       {
         headers: {
