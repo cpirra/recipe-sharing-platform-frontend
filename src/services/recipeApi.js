@@ -89,59 +89,59 @@ export const registerToken = async (token) => {
   }
 };
 
-export const fetchRecipeById = async (id) => {
-  const GET_RECIPE_BY_ID = gql`
-    query recipe($id: ID!) {
-      recipeById(id: $id) {
-        description
-        id
-        imageUrls
-        name
-        videoUrls
-        cuisineDetails {
-          name
-          id
-        }
-        categoryDetails {
-          name
-          id
-        }
-        ingredients {
-          name
-          quantity
-        }
-        instructions {
-          description
-          stepNumber
-        }
-        user {
-          username
-          id
-        }
-        nutritionalInfo {
-          calories
-          fat
-          carbohydrates
-          protein
-          sugar
-          fiber
-          sodium
-        }
-      }
-    }
-  `;
+// export const fetchRecipeById = async (id) => {
+//   const GET_RECIPE_BY_ID = gql`
+//     query recipe($id: ID!) {
+//       recipeById(id: $id) {
+//         description
+//         id
+//         imageUrls
+//         name
+//         videoUrls
+//         cuisineDetails {
+//           name
+//           id
+//         }
+//         categoryDetails {
+//           name
+//           id
+//         }
+//         ingredients {
+//           name
+//           quantity
+//         }
+//         instructions {
+//           description
+//           stepNumber
+//         }
+//         user {
+//           username
+//           id
+//         }
+//         nutritionalInfo {
+//           calories
+//           fat
+//           carbohydrates
+//           protein
+//           sugar
+//           fiber
+//           sodium
+//         }
+//       }
+//     }
+//   `;
 
-  try {
-    const { data } = await client.query({
-      query: GET_RECIPE_BY_ID,
-      variables: { id },
-    });
-    return data.recipeById;
-  } catch (error) {
-    console.error('Error fetching recipe:', error);
-    return null;
-  }
-};
+//   try {
+//     const { data } = await client.query({
+//       query: GET_RECIPE_BY_ID,
+//       variables: { id },
+//     });
+//     return data.recipeById;
+//   } catch (error) {
+//     console.error('Error fetching recipe:', error);
+//     return null;
+//   }
+// };
 
 export const fetchReviewsByRecipeId = async (id, page = 1, size = 5) => {
   try {
@@ -161,22 +161,22 @@ export const submitReview = async (review) => {
 };
 
 export const fetchCategories = async () => {
-  return await apiCall('/Categories');
+  return await apiCall('Categories');
 };
 
 export const fetchCuisines = async () => {
-  return await apiCall('/Cuisine');
+  return await apiCall('Cuisine');
 };
 
 export const postRecipeCategory = async (data) => {
-  return await apiCall('/RecipeCategory', {
+  return await apiCall('RecipeCategory', {
     method: 'POST',
     body: JSON.stringify(data),
   });
 };
 
 export const postRecipeCuisine = async (data) => {
-  return await apiCall('/RecipeCuisine', {
+  return await apiCall('RecipeCuisine', {
     method: 'POST',
     body: JSON.stringify(data),
   });
