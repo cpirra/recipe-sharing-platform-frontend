@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-const apiBaseUrl = 'https://localhost:7036/api/'
+const apiBaseUrl = 'https://localhost:7036/api' // No trailing slash
 
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,
@@ -24,7 +24,7 @@ export const useRecipeStore = defineStore('recipe', {
   actions: {
     async postGeneralInfo(data) {
       try {
-        const response = await axiosInstance.post('Recipe', data)
+        const response = await axiosInstance.post('/Recipe', data) // Leading slash
         return response.data
       } catch (error) {
         console.error('Error posting general info:', error)
@@ -33,7 +33,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async postIngredients(data) {
       try {
-        await axiosInstance.post('Ingredient', data)
+        await axiosInstance.post('/Ingredient', data) // Leading slash
       } catch (error) {
         console.error('Error posting ingredients:', error)
         throw error
@@ -41,7 +41,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async postInstructions(data) {
       try {
-        await axiosInstance.post('Instruction', data)
+        await axiosInstance.post('/Instruction', data) // Leading slash
       } catch (error) {
         console.error('Error posting instructions:', error)
         throw error
@@ -49,7 +49,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async postNutritionalInfo(data) {
       try {
-        await axiosInstance.post('NutritionalInfo', data)
+        await axiosInstance.post('/NutritionalInfo', data) // Leading slash
       } catch (error) {
         console.error('Error posting nutritional info:', error)
         throw error
@@ -57,7 +57,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateRecipe(id, data) {
       try {
-        const response = await axiosInstance.put(`Recipe/${id}`, data)
+        const response = await axiosInstance.put(`/Recipe/${id}`, data) // Leading slash
         return response.data
       } catch (error) {
         console.error('Error updating recipe:', error)
@@ -66,7 +66,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateIngredients(id, data) {
       try {
-        await axiosInstance.put(`Ingredient/${id}`, data)
+        await axiosInstance.put(`/Ingredient/${id}`, data) // Leading slash
       } catch (error) {
         console.error('Error updating ingredients:', error)
         throw error
@@ -74,7 +74,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateInstructions(id, data) {
       try {
-        await axiosInstance.put(`Instruction/${id}`, data)
+        await axiosInstance.put(`/Instruction/${id}`, data) // Leading slash
       } catch (error) {
         console.error('Error updating instructions:', error)
         throw error
@@ -82,7 +82,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateNutritionalInfo(id, data) {
       try {
-        await axiosInstance.put(`NutritionalInfo/${id}`, data)
+        await axiosInstance.put(`/NutritionalInfo/${id}`, data) // Leading slash
       } catch (error) {
         console.error('Error updating nutritional info:', error)
         throw error
@@ -90,7 +90,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateRecipeCategory(data) {
       try {
-        await axiosInstance.put('RecipeCategory', data)
+        await axiosInstance.put('/RecipeCategory', data) // Leading slash
       } catch (error) {
         console.error('Error updating recipe category:', error)
         throw error
@@ -98,7 +98,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateRecipeCuisine(data) {
       try {
-        await axiosInstance.put('RecipeCuisine', data)
+        await axiosInstance.put('/RecipeCuisine', data) // Leading slash
       } catch (error) {
         console.error('Error updating recipe cuisine:', error)
         throw error

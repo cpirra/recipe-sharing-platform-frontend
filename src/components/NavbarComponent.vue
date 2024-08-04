@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import { useUserStore } from '@/stores/userStore.js';
-import { fetchCuisines, fetchCategories } from '@/services/navApi.js';
+import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
+import { useUserStore } from '@/stores/userStore';
+import { fetchCuisines, fetchCategories } from '@/services/navApi';
 import { useRouter } from 'vue-router';
 import AuthButtons from '@/components/Utils/AuthButtons.vue';
 import { useSearch } from '@/composables/useSearch';
@@ -52,12 +52,25 @@ const toggleMenu = () => {
 const handleSearchInput = () => {
   router.push({ path: '/', query: { search: searchQuery.value } });
 };
+
+// Periodically check for token changes
+let tokenCheckInterval;
+
+onMounted(() => {
+  userStore.checkToken(); // Initial check
+  tokenCheckInterval = setInterval(() => {
+    userStore.checkToken();
+  }, 1000); // Check every second
+});
+
+onUnmounted(() => {
+  clearInterval(tokenCheckInterval);
+});
 </script>
 
-
 <template>
-  <nav class="p-4 bg-[#f8fafc] text-black navbar flex flex-wrap  direction-column" >
-    <div class="flex items-center  w-full sm:w-auto ">
+  <nav class="p-4 bg-[#f8fafc] text-black navbar flex flex-wrap direction-column">
+    <div class="flex items-center w-full sm:w-auto">
       <RouterLink to="/" class="mr-4">
         <img class="logo" src="../assets/images/logo.png" alt="Logo" />
       </RouterLink>
@@ -94,22 +107,21 @@ const handleSearchInput = () => {
       </div>
       <AuthButtons />
       <div class="flex flex-col sm:flex-row sm:items-center mt-4 sm:mt-0">
-      <div class="user-logged-in flex gap-5 items-center">
-        <RouterLink v-if="userStore.user" :to="{ path: '/profile' }">
-          <img src="../assets/images/profile.png" alt="Profile Icon" class="profile-icon w-10 h-10 rounded-full" />
-        </RouterLink>
+        <div class="user-logged-in flex gap-5 items-center" v-if="userStore.isAuthenticated">
+          <RouterLink :to="{ path: '/profile' }">
+            <img src="../assets/images/profile.png" alt="Profile Icon" class="profile-icon w-10 h-10 rounded-full" />
+          </RouterLink>
+        </div>
+        <div class="search">
+          <input
+            v-model="searchQuery"
+            @input="handleSearchInput"
+            class="search-input mt-4 sm:mt-0 sm:ml-4"
+            type="text"
+            placeholder="Search..."
+          />
+        </div>
       </div>
-      <div class="search">
-        <input
-        v-model="searchQuery"
-        @input="handleSearchInput"
-        class="search-input mt-4 sm:mt-0 sm:ml-4"
-        type="text"
-        placeholder="Search..."
-      />
-      </div>
-      
-    </div>
     </div>
   </nav>
   <RouterView />
@@ -133,15 +145,15 @@ const handleSearchInput = () => {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-.search{
+.search {
   display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
-.search img{
+.search img {
   height: 2rem;
 }
 .logout-button {

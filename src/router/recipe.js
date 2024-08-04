@@ -1,3 +1,4 @@
+// src/router/recipe.js
 const recipeViews = {
   RecipeCreate: 'RecipeCreate.vue',
   RecipeFavourites: 'RecipeFavouritesView.vue',
@@ -10,17 +11,17 @@ const recipeViews = {
 }
 
 const routes = [
-  { path: '/recipes/new', name: 'RecipeCreate' },
+  { path: '/recipes/new', name: 'RecipeCreate', meta: { requiresAuth: true } },
   { path: '/recipes/favourites', name: 'RecipeFavourites' },
   { path: '/recipes/latest', name: 'RecipeLatest' },
   { path: '/recipes/trendy', name: 'RecipeTrendy' },
   { path: '/recipes/commented', name: 'commented' },
   { path: '/recipes/reviewed', name: 'reviewed' },
   { path: '/recipes/:id', name: 'RecipeDetails' },
-  { path: '/recipes/edit/:id', name: 'RecipeEdit' }
+  { path: '/recipes/edit/:id', name: 'RecipeEdit', meta: { requiresAuth: true } }
 ].map((route) => ({
   ...route,
   component: () => import(`../views/recipe/${recipeViews[route.name]}`)
 }))
 
-export default routes
+export default routes;
