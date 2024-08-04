@@ -55,7 +55,7 @@ watch(
   padding-top: 1rem;
   font-size: 20px;
   font-weight: bolder;
-  color: orangered;
+  color: black;
 }</style>
   
   

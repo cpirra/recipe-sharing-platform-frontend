@@ -24,6 +24,9 @@ watch(() => route.params.id, (newId) => {
 </script>
 
 <template>
+  <div class="cuisineBanner">
+    <img class="cuisineimg" src="@/assets/images/vectest.jpg" alt="">
+  </div>
   <div>
     <h2 class="cuisine-title" v-if="!error">{{ cuisine.name }} Recipes: </h2>
     <p v-if="error">{{ error }}</p>
@@ -44,10 +47,20 @@ watch(() => route.params.id, (newId) => {
       <p>No recipes available for this cuisine.</p>
     </div>
   </div>
+  
 </template>
 
 <style scoped>
-.recipe-grid {
+.cuisineimg{
+  width: 100%;
+}
+.cuisineBanner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.recipe-grid ,
+p{
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -61,6 +74,6 @@ watch(() => route.params.id, (newId) => {
   padding: 2rem;
   font-size: 20px;
   font-weight: bolder;
-  color: orangered;
+  color: black;
 }
 </style>

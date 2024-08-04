@@ -11,6 +11,7 @@ import FavouritesRecipes from '@/components/Recipe/FavouritesRecipes.vue';
 import MostReviewsRecipes from '@/components/Recipe/MostReviewsRecipes.vue';
 import MostCommentsRecipe from '@/components/Recipe/MostCommentsRecipe.vue';
 import SearchRecipe from '@/components/Recipe/SearchRecipe.vue';
+import BePartOfUs from '@/components/Recipe/BePartOfUs.vue';
 
 const showModal = ref(false);
 </script>
@@ -37,5 +38,6 @@ const showModal = ref(false);
     <FavouritesRecipes />
     <MostReviewsRecipes />
     <MostCommentsRecipe />
+    <BePartOfUs/>
   </div>
 </template>
