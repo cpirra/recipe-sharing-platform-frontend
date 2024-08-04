@@ -155,3 +155,11 @@ export async function updateRecipeCuisine(data) {
   })
   return await response.json()
 }
+
+// New function to submit a report
+export const submitReport = async (report) => {
+  return await apiCall('/Reports', {
+    method: 'POST',
+    body: JSON.stringify(report)
+  })
+}

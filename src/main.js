@@ -6,12 +6,17 @@ import router from './router'
 import { createAuth0 } from '@auth0/auth0-vue'
 import { provideApolloClient } from '@vue/apollo-composable'
 import client from '@/utils/apollo'
+import SocialSharing from 'vue-social-sharing'
+import { setupToast } from '@/plugins/toast'
 
 const app = createApp(App)
 const pinia = createPinia()
 
 app.use(pinia)
 app.use(router)
+app.use(SocialSharing)
+
+setupToast(app)
 
 app.use(
   createAuth0({
@@ -19,7 +24,7 @@ app.use(
     clientId: 'ThiGwfRnjUzeRvgrs5matA0gGcQxUfOk',
     authorizationParams: {
       redirect_uri: window.location.origin,
-      audience: 'https://RecipeAPI', // Ensure this matches your API identifier
+      audience: 'https://RecipeAPI',
       scope: 'openid profile email'
     }
   })
