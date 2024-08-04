@@ -1,3 +1,29 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { fetchRecipeById } from '@/services/recipeApi'
+import Reviews from '@/components/Recipe/RecipeReview.vue'
+import ReportRecipe from '@/components/Recipe/RecipeReport.vue'
+import ShareButton from '@/components/Utils/ShareButton.vue' // Import the ShareButton component
+
+const route = useRoute()
+const router = useRouter()
+const recipe = ref(null)
+const id = String(route.params.id) // Ensure id is a string
+
+const fetchRecipe = async (id) => {
+  recipe.value = await fetchRecipeById(id)
+}
+
+const goBack = () => {
+  router.push('/')
+}
+
+onMounted(() => {
+  fetchRecipe(id)
+})
+</script>
+
 <template>
   <div
     v-if="recipe"
@@ -64,9 +90,16 @@
         <h2 class="text-xl font-semibold mb-2">Video</h2>
         <video :src="recipe.videoUrls" controls class="w-full"></video>
       </div>
+      <div class="mb-4">
+        <ShareButton :recipeId="id" :recipeTitle="recipe.name" />
+      </div>
     </div>
     <div class="reviews-section p-6 border-t mt-8">
       <Reviews />
+    </div>
+    <div class="report-section p-6 border-t mt-8">
+      <ReportRecipe :recipeId="recipe.id" :reporterId="1" />
+      <!-- Pass the actual reporter ID -->
     </div>
   </div>
   <div v-else class="text-center p-6">
@@ -94,30 +127,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { fetchRecipeById } from '@/services/recipeApi'
-import Reviews from '@/components/Recipe/RecipeReview.vue'
-
-const route = useRoute()
-const router = useRouter()
-const recipe = ref(null)
-
-const fetchRecipe = async (id) => {
-  recipe.value = await fetchRecipeById(id)
-}
-
-const goBack = () => {
-  router.push('/')
-}
-
-onMounted(() => {
-  const id = route.params.id
-  fetchRecipe(id)
-})
-</script>
-
 <style scoped>
 .recipe-detail {
   max-width: 800px;
@@ -136,6 +145,9 @@ onMounted(() => {
   padding: 1.5rem;
 }
 .reviews-section {
+  background-color: #f9fafb; /* light gray background to distinguish */
+}
+.report-section {
   background-color: #f9fafb; /* light gray background to distinguish */
 }
 </style>
