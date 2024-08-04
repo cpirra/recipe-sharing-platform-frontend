@@ -1,7 +1,7 @@
 <template>
-    <div class="created-recipes">
-      <h2 class="text-xl font-semibold mb-2">Created Recipes</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div >
+      <h2 class="text-xl font-semibold mb-2 text-center ">Your Created Recipes</h2>
+      <div class="created-recipes">
         <RecipeCard
           v-for="recipe in createdRecipes"
           :key="recipe.id"
@@ -35,6 +35,13 @@
   </script>
   
   <style scoped>
-  /* Add any necessary styling for the created recipes section */
-  </style>
+.created-recipes{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem;
+}
+</style>
   
