@@ -6,12 +6,14 @@ import router from './router'
 import { createAuth0 } from '@auth0/auth0-vue'
 import { provideApolloClient } from '@vue/apollo-composable'
 import client from '@/utils/apollo'
+import SocialSharing from 'vue-social-sharing'
 
 const app = createApp(App)
 const pinia = createPinia()
 
 app.use(pinia)
 app.use(router)
+app.use(SocialSharing)
 
 app.use(
   createAuth0({

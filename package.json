@@ -23,7 +23,8 @@
     "pinia": "^2.2.0",
     "vue": "^3.4.29",
     "vue-jwt-decode": "^0.1.0",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "vue-social-sharing": "^4.0.0-alpha4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
