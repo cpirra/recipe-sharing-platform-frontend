@@ -1,3 +1,5 @@
+// src/services/recipeApi.js
+
 import client, { gql } from '../utils/apollo' // Ensure correct path and import
 
 const BASE_URL = 'https://localhost:7036/api'
@@ -28,6 +30,17 @@ const apiCall = async (endpoint, options = {}) => {
   } catch (error) {
     console.error('Error during API call:', error)
     return null
+  }
+}
+
+// Add this function to fetch user-created recipes
+export const fetchUserCreatedRecipes = async (userId) => {
+  try {
+    const response = await apiCall(`/Recipe/user/${userId}?page=1&pageSize=10`)
+    return response || [] // Return an empty array if response is null
+  } catch (error) {
+    console.error('Error fetching user-created recipes:', error)
+    return [] // Return an empty array in case of an error
   }
 }
 
