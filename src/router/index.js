@@ -47,11 +47,6 @@ const routes = [
       },
     ],
   },
-  {
-    path: '/auth',
-    name: 'Auth',
-    component: () => import('../layouts/FullLayout.vue'),
-  },
   // Catch-all route for handling undefined routes
   {
     path: '/:pathMatch(.*)*',
