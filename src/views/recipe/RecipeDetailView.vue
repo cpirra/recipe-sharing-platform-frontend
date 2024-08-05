@@ -69,7 +69,7 @@ onMounted(() => {
     v-if="!loading && !errorMessage && recipe"
     class="recipe-detail max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-8"
   >
-    <img :src="recipe.imageUrls" alt="Recipe Image" class="w-full h-64 object-cover" />
+    <img :src="recipe.imageUrls[0]?.url" alt="Recipe Image" class="w-full h-64 object-cover" v-if="recipe.imageUrls && recipe.imageUrls.length > 0"/>
     <div class="p-6">
       <button @click="goBack" class="text-blue-500 mb-4">← Back to Recipes</button>
       <h1 class="text-3xl font-bold mb-2">{{ recipe.name }}</h1>
@@ -110,23 +110,21 @@ onMounted(() => {
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Nutritional Information</h2>
-        <p><strong>Calories:</strong> {{ recipe.nutritionalInfo.calories }}</p>
-        <p><strong>Fat:</strong> {{ recipe.nutritionalInfo.fat }}g</p>
-        <p><strong>Carbohydrates:</strong> {{ recipe.nutritionalInfo.carbohydrates }}g</p>
-        <p><strong>Protein:</strong> {{ recipe.nutritionalInfo.protein }}g</p>
-        <p><strong>Sugar:</strong> {{ recipe.nutritionalInfo.sugar }}g</p>
-        <p><strong>Fiber:</strong> {{ recipe.nutritionalInfo.fiber }}g</p>
-        <p><strong>Sodium:</strong> {{ recipe.nutritionalInfo.sodium }}mg</p>
+        <p v-if="recipe.nutritionalInfo?.calories !== undefined"><strong>Calories:</strong> {{ recipe.nutritionalInfo.calories }}</p>
+        <p v-if="recipe.nutritionalInfo?.fat !== undefined"><strong>Fat:</strong> {{ recipe.nutritionalInfo.fat }}g</p>
+        <p v-if="recipe.nutritionalInfo?.carbohydrates !== undefined"><strong>Carbohydrates:</strong> {{ recipe.nutritionalInfo.carbohydrates }}g</p>
+        <p v-if="recipe.nutritionalInfo?.protein !== undefined"><strong>Protein:</strong> {{ recipe.nutritionalInfo.protein }}g</p>
+        <p v-if="recipe.nutritionalInfo?.sugar !== undefined"><strong>Sugar:</strong> {{ recipe.nutritionalInfo.sugar }}g</p>
+        <p v-if="recipe.nutritionalInfo?.fiber !== undefined"><strong>Fiber:</strong> {{ recipe.nutritionalInfo.fiber }}g</p>
+        <p v-if="recipe.nutritionalInfo?.sodium !== undefined"><strong>Sodium:</strong> {{ recipe.nutritionalInfo.sodium }}mg</p>
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Author</h2>
-        <p>
-          <a :href="'mailto:' + recipe.user.email" class="text-blue-500">{{ recipe.user.username }}</a>
-        </p>
+        <p>{{ recipe.user?.username }}</p>
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Video</h2>
-        <video :src="recipe.videoUrls" controls class="w-full"></video>
+        <video :src="recipe.videoUrls[0]?.url" controls class="w-full" v-if="recipe.videoUrls && recipe.videoUrls.length > 0"></video>
       </div>
       <div class="mb-4">
         <ShareButton :recipeId="id" :recipeTitle="recipe.name" />

@@ -6,7 +6,6 @@ const apiBaseUrl = 'https://localhost:7036/api' // No trailing slash
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,
   headers: {
-    'Content-Type': 'application/json',
     Accept: 'application/json'
   }
 })
@@ -24,7 +23,11 @@ export const useRecipeStore = defineStore('recipe', {
   actions: {
     async postGeneralInfo(data) {
       try {
-        const response = await axiosInstance.post('/Recipe', data) // Leading slash
+        const response = await axiosInstance.post('/Recipe', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
         return response.data
       } catch (error) {
         console.error('Error posting general info:', error)
@@ -33,7 +36,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async postIngredients(data) {
       try {
-        await axiosInstance.post('/Ingredient', data) // Leading slash
+        await axiosInstance.post('/Ingredient', data)
       } catch (error) {
         console.error('Error posting ingredients:', error)
         throw error
@@ -41,7 +44,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async postInstructions(data) {
       try {
-        await axiosInstance.post('/Instruction', data) // Leading slash
+        await axiosInstance.post('/Instruction', data)
       } catch (error) {
         console.error('Error posting instructions:', error)
         throw error
@@ -49,7 +52,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async postNutritionalInfo(data) {
       try {
-        await axiosInstance.post('/NutritionalInfo', data) // Leading slash
+        await axiosInstance.post('/NutritionalInfo', data)
       } catch (error) {
         console.error('Error posting nutritional info:', error)
         throw error
@@ -57,7 +60,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateRecipe(id, data) {
       try {
-        const response = await axiosInstance.put(`/Recipe/${id}`, data) // Leading slash
+        const response = await axiosInstance.put(`/Recipe/${id}`, data)
         return response.data
       } catch (error) {
         console.error('Error updating recipe:', error)
@@ -66,7 +69,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateIngredients(id, data) {
       try {
-        await axiosInstance.put(`/Ingredient/${id}`, data) // Leading slash
+        await axiosInstance.put(`/Ingredient/${id}`, data)
       } catch (error) {
         console.error('Error updating ingredients:', error)
         throw error
@@ -74,7 +77,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateInstructions(id, data) {
       try {
-        await axiosInstance.put(`/Instruction/${id}`, data) // Leading slash
+        await axiosInstance.put(`/Instruction/${id}`, data)
       } catch (error) {
         console.error('Error updating instructions:', error)
         throw error
@@ -82,7 +85,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateNutritionalInfo(id, data) {
       try {
-        await axiosInstance.put(`/NutritionalInfo/${id}`, data) // Leading slash
+        await axiosInstance.put(`/NutritionalInfo/${id}`, data)
       } catch (error) {
         console.error('Error updating nutritional info:', error)
         throw error
@@ -90,7 +93,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateRecipeCategory(data) {
       try {
-        await axiosInstance.put('/RecipeCategory', data) // Leading slash
+        await axiosInstance.put('/RecipeCategory', data)
       } catch (error) {
         console.error('Error updating recipe category:', error)
         throw error
@@ -98,7 +101,7 @@ export const useRecipeStore = defineStore('recipe', {
     },
     async updateRecipeCuisine(data) {
       try {
-        await axiosInstance.put('/RecipeCuisine', data) // Leading slash
+        await axiosInstance.put('/RecipeCuisine', data)
       } catch (error) {
         console.error('Error updating recipe cuisine:', error)
         throw error

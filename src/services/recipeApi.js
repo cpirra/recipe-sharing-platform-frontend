@@ -89,63 +89,10 @@ export const registerToken = async (token) => {
   }
 };
 
-// export const fetchRecipeById = async (id) => {
-//   const GET_RECIPE_BY_ID = gql`
-//     query recipe($id: ID!) {
-//       recipeById(id: $id) {
-//         description
-//         id
-//         imageUrls
-//         name
-//         videoUrls
-//         cuisineDetails {
-//           name
-//           id
-//         }
-//         categoryDetails {
-//           name
-//           id
-//         }
-//         ingredients {
-//           name
-//           quantity
-//         }
-//         instructions {
-//           description
-//           stepNumber
-//         }
-//         user {
-//           username
-//           id
-//         }
-//         nutritionalInfo {
-//           calories
-//           fat
-//           carbohydrates
-//           protein
-//           sugar
-//           fiber
-//           sodium
-//         }
-//       }
-//     }
-//   `;
-
-//   try {
-//     const { data } = await client.query({
-//       query: GET_RECIPE_BY_ID,
-//       variables: { id },
-//     });
-//     return data.recipeById;
-//   } catch (error) {
-//     console.error('Error fetching recipe:', error);
-//     return null;
-//   }
-// };
 
 export const fetchReviewsByRecipeId = async (id, page = 1, size = 5) => {
   try {
-    const reviews = await apiCall(`/Review/by-recipe/${id}?page=${page}&size=${size}`);
+    const reviews = await apiCall(`Review/by-recipe/${id}?page=${page}&size=${size}`);
     return reviews || []; // Return an empty array if reviews are null
   } catch (error) {
     console.error('Error fetching reviews:', error);
@@ -154,36 +101,36 @@ export const fetchReviewsByRecipeId = async (id, page = 1, size = 5) => {
 };
 
 export const submitReview = async (review) => {
-  return await apiCall(`/Review`, {
+  return await apiCall(`Review`, {
     method: 'POST',
     body: JSON.stringify(review),
   });
 };
 
 export const fetchCategories = async () => {
-  return await apiCall('/Categories');
+  return await apiCall('Categories');
 };
 
 export const fetchCuisines = async () => {
-  return await apiCall('/Cuisine');
+  return await apiCall('Cuisine');
 };
 
 export const postRecipeCategory = async (data) => {
-  return await apiCall('/RecipeCategory', {
+  return await apiCall('RecipeCategory', {
     method: 'POST',
     body: JSON.stringify(data),
   });
 };
 
 export const postRecipeCuisine = async (data) => {
-  return await apiCall('/RecipeCuisine', {
+  return await apiCall('RecipeCuisine', {
     method: 'POST',
     body: JSON.stringify(data),
   });
 };
 
 export async function updateRecipe(id, data) {
-  const response = await fetch(`${BASE_URL}/Recipe/${id}`, {
+  const response = await fetch(`${BASE_URL}Recipe/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -194,7 +141,7 @@ export async function updateRecipe(id, data) {
 }
 
 export async function updateRecipeCategory(data) {
-  const response = await fetch(`${BASE_URL}/RecipeCategory`, {
+  const response = await fetch(`${BASE_URL}RecipeCategory`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -205,7 +152,7 @@ export async function updateRecipeCategory(data) {
 }
 
 export async function updateRecipeCuisine(data) {
-  const response = await fetch(`${BASE_URL}/RecipeCuisine`, {
+  const response = await fetch(`${BASE_URL}RecipeCuisine`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -217,7 +164,7 @@ export async function updateRecipeCuisine(data) {
 
 // New function to submit a report
 export const submitReport = async (report) => {
-  return await apiCall('/Reports', {
+  return await apiCall('Reports', {
     method: 'POST',
     body: JSON.stringify(report),
   });
@@ -225,7 +172,7 @@ export const submitReport = async (report) => {
 
 export const fetchUserCreatedRecipes = async (userId) => {
   try {
-    const response = await apiClient.get(`/Recipe/user/${userId}?page=1&pageSize=10`);
+    const response = await apiClient.get(`Recipe/user/${userId}?page=1&pageSize=10`);
     return response.data;
   } catch (error) {
     console.error('Error fetching user-created recipes:', error);
