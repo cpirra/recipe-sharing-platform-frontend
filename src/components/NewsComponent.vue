@@ -39,15 +39,17 @@
     margin: 2rem;
     padding: 1rem;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     font-weight: bold;
 }
 .banner{
     padding: 1rem;
-    width: 60rem;
+    width: 40rem;
 }
 .news .banner .foto{
-    width: 50rem;
+    width: 40rem;
     height: auto;
 }
 .content{

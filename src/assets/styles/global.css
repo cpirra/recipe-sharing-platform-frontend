@@ -1,0 +1,23 @@
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --nav-background: #f8fafc; /* Light theme */
+    --nav-text-color: #000000;
+    --footer-background: #f1f1f1;
+    --footer-text-color: #000000;
+  }
+  
+  .dark-theme {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --nav-background: #1f1f1f; /* Dark theme */
+    --nav-text-color: #ffffff;
+    --footer-background: #1a1a1a;
+    --footer-text-color: #ffffff;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
