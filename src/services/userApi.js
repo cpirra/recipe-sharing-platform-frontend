@@ -1,5 +1,3 @@
-// src/services/userApi.js
-
 import axios from 'axios'
 
 const apiClient = axios.create({
@@ -76,6 +74,45 @@ export const getNotifications = async (userId) => {
     return response.data
   } catch (error) {
     console.error('Error fetching notifications:', error)
+    throw error
+  }
+}
+
+// New functions for following and unfollowing users
+export const followUser = async (followerId, followedId) => {
+  const params = {
+    followerId,
+    followedId
+  }
+  try {
+    const response = await apiClient.post('/Follow/follow', null, { params })
+    return response.data
+  } catch (error) {
+    console.error('Error following user:', error)
+    throw error
+  }
+}
+
+export const unfollowUser = async (followerId, followedId) => {
+  const params = {
+    followerId,
+    followedId
+  }
+  try {
+    const response = await apiClient.post('/Follow/unfollow', null, { params })
+    return response.data
+  } catch (error) {
+    console.error('Error unfollowing user:', error)
+    throw error
+  }
+}
+
+export const fetchUserData = async (userId) => {
+  try {
+    const response = await apiClient.get(`/User/${userId}`)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching user data:', error)
     throw error
   }
 }

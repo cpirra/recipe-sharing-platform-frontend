@@ -1,41 +1,3 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { fetchRecipeById } from '@/utils/apollo'
-import Reviews from '@/components/Recipe/RecipeReview.vue'
-import ReportRecipe from '@/components/Recipe/RecipeReport.vue'
-import ShareButton from '@/components/Utils/ShareButton.vue' // Import the ShareButton component
-
-const route = useRoute()
-const router = useRouter()
-const recipe = ref(null)
-const loading = ref(true)
-const errorMessage = ref(null)
-const id = String(route.params.id) // Ensure id is a string
-
-const fetchRecipe = async (id) => {
-  try {
-    recipe.value = await fetchRecipeById(id)
-    if (!recipe.value) {
-      errorMessage.value = 'Recipe not found.'
-    }
-  } catch (error) {
-    console.error('Error fetching recipe:', error)
-    errorMessage.value = 'An error occurred while fetching the recipe.'
-  } finally {
-    loading.value = false
-  }
-}
-
-const goBack = () => {
-  router.push('/')
-}
-
-onMounted(() => {
-  fetchRecipe(id)
-})
-</script>
-
 <template>
   <div v-if="loading" class="text-center p-6">
     <svg
@@ -120,7 +82,9 @@ onMounted(() => {
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Author</h2>
-        <p>{{ recipe.user?.username }}</p>
+        <router-link :to="`/profile/${recipe.user.id}`" class="text-blue-500">
+          {{ recipe.user?.username }}
+        </router-link>
       </div>
       <div class="mb-4">
         <h2 class="text-xl font-semibold mb-2">Video</h2>
@@ -139,6 +103,44 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { fetchRecipeById } from '@/utils/apollo'
+import Reviews from '@/components/Recipe/RecipeReview.vue'
+import ReportRecipe from '@/components/Recipe/RecipeReport.vue'
+import ShareButton from '@/components/Utils/ShareButton.vue' // Import the ShareButton component
+
+const route = useRoute()
+const router = useRouter()
+const recipe = ref(null)
+const loading = ref(true)
+const errorMessage = ref(null)
+const id = String(route.params.id) // Ensure id is a string
+
+const fetchRecipe = async (id) => {
+  try {
+    recipe.value = await fetchRecipeById(id)
+    if (!recipe.value) {
+      errorMessage.value = 'Recipe not found.'
+    }
+  } catch (error) {
+    console.error('Error fetching recipe:', error)
+    errorMessage.value = 'An error occurred while fetching the recipe.'
+  } finally {
+    loading.value = false
+  }
+}
+
+const goBack = () => {
+  router.push('/')
+}
+
+onMounted(() => {
+  fetchRecipe(id)
+})
+</script>
 
 <style scoped>
 .recipe-detail {

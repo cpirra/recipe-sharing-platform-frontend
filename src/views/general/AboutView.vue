@@ -2,7 +2,7 @@
 export default {
   data() {
     return {
-      platformName: "Recipe sharing platform"
+      platformName: "Kuizine"
     };
   }
 };
