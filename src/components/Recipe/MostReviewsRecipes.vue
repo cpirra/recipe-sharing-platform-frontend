@@ -7,7 +7,7 @@ const reviewedRecipes = ref([]) // For reviewed recipes
 
 const fetchReviewedRecipes = async () => {
   try {
-    const response = await axios.get('https://localhost:7036/api/TopRecipe/top-by-reviews?page=1&pageSize=4')
+    const response = await axios.get('http://34.17.45.194:8080/api/TopRecipe/top-by-reviews?page=1&pageSize=4')
     console.log(response.data); // Check the data structure here
     reviewedRecipes.value = response.data.slice(0, 3) // Limit to 4 recipes
   } catch (error) {

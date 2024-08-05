@@ -13,7 +13,7 @@ const props = defineProps({
   }
 })
 
-const shareUrl = ref(`https://localhost:7036/api/Recipe/${props.recipeId}`)
+const shareUrl = ref(`http://34.17.45.194:8080/api/Recipe/${props.recipeId}`)
 </script>
 
 <template>

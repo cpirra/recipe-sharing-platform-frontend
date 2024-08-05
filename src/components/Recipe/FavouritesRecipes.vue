@@ -7,7 +7,7 @@ const favoriteRecipes = ref([]) // For favorite recipes
 
 const fetchFavoriteRecipes = async () => {
   try {
-    const response = await axios.get('https://localhost:7036/api/TopRecipe/top-by-favorite?page=1&pageSize=4')
+    const response = await axios.get('http://34.17.45.194:8080/api/TopRecipe/top-by-favorite?page=1&pageSize=4')
     console.log(response.data); // Check the data structure here
     favoriteRecipes.value = response.data.slice(0, 2) // Limit to 4 recipes
   } catch (error) {
