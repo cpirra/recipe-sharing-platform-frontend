@@ -111,6 +111,9 @@ onUnmounted(() => {
           <RouterLink :to="{ path: '/profile' }">
             <img src="../assets/images/profile.png" alt="Profile Icon" class="profile-icon w-10 h-10 rounded-full" />
           </RouterLink>
+          <RouterLink :to="{ path: '/recipes/new' }" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Create Recipe
+          </RouterLink>
         </div>
         <div class="search">
           <input
