@@ -1,11 +1,14 @@
-// useSearch.js
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
+
+// Use environment variables for the API base URL
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export function useSearch() {
   const searchQuery = ref('');
   const searchResults = ref([]);
   const showResults = ref(false);
 
+  // Fetch search results from the API
   const fetchSearchResults = async () => {
     if (searchQuery.value.trim() === '') {
       searchResults.value = [];
@@ -15,7 +18,10 @@ export function useSearch() {
 
     const query = encodeURIComponent(searchQuery.value);
     try {
-      const response = await fetch(`http://34.17.45.194:8080/api/Elastisearch/search?query=${query}`);
+      const response = await fetch(`${apiBaseUrl}Elastisearch/search?query=${query}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       searchResults.value = data;
       showResults.value = data.length > 0;
@@ -26,7 +32,19 @@ export function useSearch() {
     }
   };
 
-  watch(searchQuery, fetchSearchResults);
+  // Use debounce to limit the number of API calls
+  let debounceTimeout;
+  const debouncedFetch = (delay) => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => fetchSearchResults(), delay);
+  };
 
-  return { searchQuery, searchResults, showResults, fetchSearchResults };
+  watch(searchQuery, () => {
+    debouncedFetch(300); // Debounce delay of 300ms
+  });
+
+  // Computed property to manage whether results are shown
+  const resultsAvailable = computed(() => searchResults.value.length > 0);
+
+  return { searchQuery, searchResults, showResults: resultsAvailable, fetchSearchResults };
 }

@@ -18,16 +18,19 @@ const latestRecipes = ref([]) // For latest recipes
 const currentPage = ref(1)
 const totalPages = ref(1)
 
+// Use environment variables
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+
 const fetchLatestRecipes = async (page = 1) => {
   try {
-    const response = await axios.get(`http://34.17.45.194:8080/api/TopRecipe/leatest?page=${page}&pageSize=${props.limit}`)
+    const response = await axios.get(`${apiBaseUrl}TopRecipe/leatest?page=${page}&pageSize=${props.limit}`)
     console.log('Response:', response.data); // Check the data structure here
 
     if (Array.isArray(response.data)) {
       latestRecipes.value = response.data.map(recipe => ({
         id: recipe.id,
         name: recipe.name,
-        image: recipe.imageUrls.length > 0 ? recipe.imageUrls[0].url : '', // Map imageUrls to image
+        image: recipe.imageUrls?.[0]?.url || '', // Safely access imageUrls
         categories: recipe.categories || [], // Ensure categories is an array
         cuisines: recipe.cuisines || [], // Ensure cuisines is an array
         description: recipe.description || '' // Add description if needed
@@ -95,18 +98,21 @@ onMounted(() => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
 
-.navigation{
+.navigation {
   border: 1px solid black;
   padding: 0.5rem;
-  border-radius: 1rem
-}
-.pagination{
-  display: flex;
-  justify-content: flex-end;
-  padding: 2rem;
-  
+  border-radius: 1rem;
+  background-color: white; /* Add a background color for better visibility */
+  cursor: pointer; /* Indicate clickable */
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
 
 .recipe-list {
   display: flex;
@@ -114,7 +120,7 @@ onMounted(() => {
   gap: 16px;
   justify-content: space-around;
   padding: 2% 10%;
-  color:black;
+  color: black;
 }
 
 .heading-name {
@@ -125,13 +131,5 @@ onMounted(() => {
   font-size: 20px;
   font-weight: bolder;
   color: black;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
-  gap: 1rem;
 }
 </style>

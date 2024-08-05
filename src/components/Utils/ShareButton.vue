@@ -1,7 +1,8 @@
 <!-- src/components/ShareButton.vue -->
 <script setup>
-import { defineProps, ref } from 'vue'
+import { defineProps, ref, computed } from 'vue'
 
+// Define component props
 const props = defineProps({
   recipeId: {
     type: String,
@@ -13,7 +14,11 @@ const props = defineProps({
   }
 })
 
-const shareUrl = ref(`http://34.17.45.194:8080/api/Recipe/${props.recipeId}`)
+// Use environment variables for the base URL
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+
+// Computed property for the share URL
+const shareUrl = computed(() => `${apiBaseUrl}Recipe/${props.recipeId}`)
 </script>
 
 <template>
