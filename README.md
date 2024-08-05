@@ -1,4 +1,11 @@
-# ./
+# Kuizine
+
+This template should help get you started developing with Vue 3 in Vite.
+
+## Introduction
+
+You have to clone the project manually since it was not deployed. The backend is deployed and the connection strings are set, 
+so you will be able to fetch and post data. You can click on login and use the user `Cpirra4` and password `Bestfrontend123` as it has an admin role too.
 
 This template should help get you started developing with Vue 3 in Vite.
 
