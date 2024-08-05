@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
 
 const client = new ApolloClient({
-  uri: import.meta.env.VITE_GRAPHQL_ENDPOINT, // Using environment variable for GraphQL endpoint
+  uri: 'https://localhost:7036/graphql/', // Direct GraphQL endpoint URL
   cache: new InMemoryCache()
 });
 
@@ -10,13 +10,14 @@ export { gql }; // Export gql from here
 
 export const fetchRecipeById = async (id) => {
   const GET_RECIPE_BY_ID = gql`
-    query recipe {
+    query getRecipe {
       recipeById(id: ${id}) {
         description
         id
-        imageUrls
+        imageUrls {
+          url
+        }
         name
-        videoUrls
         cuisineDetails {
           name
           id
@@ -48,19 +49,15 @@ export const fetchRecipeById = async (id) => {
         }
       }
     }
-  `;
+  `
 
   try {
-    console.log('Fetching recipe with ID:', id);
-    console.log('GraphQL Endpoint:', import.meta.env.VITE_GRAPHQL_ENDPOINT);
     const { data } = await client.query({
-      query: GET_RECIPE_BY_ID,
-      variables: { id: String(id) }, // Ensure id is a string
-    });
-    console.log('Received data:', data);
-    return data.recipeById;
+      query: GET_RECIPE_BY_ID
+    })
+    return data.recipeById
   } catch (error) {
-    console.error('Error fetching recipe:', error);
-    return null;
+    console.error('Error fetching recipe:', error)
+    return null
   }
-};
+}

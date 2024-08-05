@@ -17,8 +17,7 @@ const step = ref(1)
 const generalInfo = ref({
   name: '',
   description: '',
-  imageUrls: '',
-  videoUrls: '',
+  media: null,  // Updated field for photos or videos
   category: '',
   cuisine: ''
 })
@@ -66,8 +65,14 @@ onMounted(() => {
 // Handle Next Step
 const nextStep = async () => {
   if (step.value === 1) {
-    // Post general info to get recipeId
-    const response = await store.postGeneralInfo(generalInfo.value)
+    const formData = new FormData();
+    formData.append('name', generalInfo.value.name);
+    formData.append('description', generalInfo.value.description);
+    if (generalInfo.value.media) {
+      formData.append('files', generalInfo.value.media); // Ensure this key matches the server-side expectation
+    }
+
+    const response = await store.postGeneralInfo(formData)
     const recipeId = response // Adjust based on actual response structure
 
     // Ensure the response contains the recipe ID
@@ -121,8 +126,7 @@ const handleFinalSubmit = async () => {
     generalInfo.value = {
       name: '',
       description: '',
-      imageUrls: '',
-      videoUrls: '',
+      media: null,
       category: '',
       cuisine: ''
     }
@@ -186,12 +190,12 @@ const removeInstruction = (index) => {
         ></textarea>
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2">Image URLs</label>
-        <input v-model="generalInfo.imageUrls" placeholder="Image URLs" class="input" />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2">Video URLs</label>
-        <input v-model="generalInfo.videoUrls" placeholder="Video URLs" class="input" />
+        <label class="block text-gray-700 font-bold mb-2">Photo/Video</label>
+        <input
+          type="file"
+          @change="e => (generalInfo.media = e.target.files[0])"
+          class="input"
+        />
       </div>
       <div class="flex justify-end mt-6">
         <button @click="nextStep" class="btn btn-primary">Next</button>
