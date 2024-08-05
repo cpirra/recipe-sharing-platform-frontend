@@ -42,8 +42,8 @@ const routes = [
         path: '/admin',
         name: 'AdminDashboard',
         component: AdminView,
-        meta: { requiresAuth: true, requiresAdmin: true },
-        beforeEnter: [authGuard, requireAuth], // Ensure both guards are applied here
+        // meta: { requiresAuth: true, requiresAdmin: true },
+        // beforeEnter: [authGuard, requireAuth], // Ensure both guards are applied here
       },
     ],
   },
@@ -65,19 +65,17 @@ const router = createRouter({
 });
 
 // Ensure the global navigation guard is working
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   const userStore = useUserStore();
-  const { loginWithRedirect } = useAuth0(); // Use Auth0 login
 
   if (to.matched.some(record => record.meta.requiresAuth) && !userStore.isAuthenticated) {
-    await loginWithRedirect({
-      redirect_uri: window.location.origin + to.fullPath,
-    });
+    next({ name: 'Home' }); // Redirect to Home if not authenticated
   } else if (to.matched.some(record => record.meta.requiresAdmin) && !userStore.isAdmin) {
-    next({ name: 'Home' });
+    next({ name: 'Home' }); // Redirect to Home if not an admin
   } else {
-    next();
+    next(); // Allow access
   }
 });
+
 
 export default router;
