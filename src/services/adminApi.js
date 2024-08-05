@@ -32,3 +32,15 @@ const apiCall = async (endpoint, options = {}) => {
 export const fetchReports = async () => {
   return await apiCall('/Reports')
 }
+
+export const approveReport = async (id) => {
+  return await apiCall(`/Reports/${id}/approve`, {
+    method: 'POST'
+  })
+}
+
+export const rejectReport = async (id) => {
+  return await apiCall(`/Reports/${id}/reject`, {
+    method: 'POST'
+  })
+}

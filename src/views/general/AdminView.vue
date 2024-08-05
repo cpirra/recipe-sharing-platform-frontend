@@ -1,11 +1,29 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { fetchReports } from '@/services/adminApi' // Import the fetchReports function
+import { fetchReports, approveReport, rejectReport } from '@/services/adminApi' // Import the fetchReports, approveReport, and rejectReport functions
 
 const reports = ref([])
 
 const loadReports = async () => {
   reports.value = await fetchReports()
+}
+
+const handleApprove = async (reportId) => {
+  try {
+    await approveReport(reportId)
+    reports.value = reports.value.filter(report => report.id !== reportId)
+  } catch (error) {
+    console.error('Error approving report:', error)
+  }
+}
+
+const handleReject = async (reportId) => {
+  try {
+    await rejectReport(reportId)
+    reports.value = reports.value.filter(report => report.id !== reportId)
+  } catch (error) {
+    console.error('Error rejecting report:', error)
+  }
 }
 
 onMounted(() => {
@@ -23,6 +41,7 @@ onMounted(() => {
             <th class="px-6 py-3 bg-gray-50">Reporter ID</th>
             <th class="px-6 py-3 bg-gray-50">Recipe ID</th>
             <th class="px-6 py-3 bg-gray-50">Reason</th>
+            <th class="px-6 py-3 bg-gray-50">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -30,6 +49,20 @@ onMounted(() => {
             <td class="px-6 py-4">{{ report.reporterId }}</td>
             <td class="px-6 py-4">{{ report.recipeId }}</td>
             <td class="px-6 py-4">{{ report.reason }}</td>
+            <td class="px-6 py-4 flex space-x-4">
+              <button 
+                @click="handleApprove(report.id)"
+                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              >
+                Approve
+              </button>
+              <button 
+                @click="handleReject(report.id)"
+                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Reject
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

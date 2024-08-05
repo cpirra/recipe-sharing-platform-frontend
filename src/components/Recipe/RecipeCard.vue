@@ -6,7 +6,7 @@ import { useFavorites } from '@/composables/useFavourites'
 import { useToast } from 'vue-toastification'
 
 const props = defineProps({
-  imageUrls: String,
+  image: String, // Adjusted to match the mapped `image` property
   categories: Array,
   cuisines: Array,
   name: String,
@@ -39,7 +39,7 @@ const goToRecipeDetail = () => {
     class="recipe-card border rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-transform duration-300 hover:scale-105"
   >
     <img
-      :src="imageUrls"
+      :src="image"
       alt="Recipe Image"
       class="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-80"
     />

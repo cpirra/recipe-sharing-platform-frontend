@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
@@ -27,11 +26,11 @@ const fetchLatestRecipes = async (page = 1) => {
     if (Array.isArray(response.data)) {
       latestRecipes.value = response.data.map(recipe => ({
         id: recipe.id,
-        name: recipe.name, // Map name to name
-        image: recipe.imageUrls, // Map imageUrls to image
+        name: recipe.name,
+        image: recipe.imageUrls.length > 0 ? recipe.imageUrls[0].url : '', // Map imageUrls to image
         categories: recipe.categories || [], // Ensure categories is an array
         cuisines: recipe.cuisines || [], // Ensure cuisines is an array
-        description: recipe.description // Add description if needed
+        description: recipe.description || '' // Add description if needed
       }))
       // Assuming each page has the same number of items, calculate total pages
       totalPages.value = Math.ceil(response.data.length / props.limit)
@@ -57,6 +56,7 @@ onMounted(() => {
 })
 </script>
 
+
 <template>
   <div>
     <!-- LATEST RECIPE LISTING -->
@@ -73,7 +73,6 @@ onMounted(() => {
         :description="recipe.description"
       />
     </div>
-    <!--TO DO: FIX THE DESIGN BESARTA-->
     <div v-if="props.showPagination" class="pagination">
       <button 
         class="btn" 
@@ -97,6 +96,8 @@ onMounted(() => {
     </RouterLink>
   </div>
 </template>
+
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
