@@ -7,7 +7,7 @@ const trendyRecipes = ref([]) // For trendy recipes
 
 const fetchTrendyRecipes = async () => {
   try {
-    const response = await axios.get('https://localhost:7036/api/TopRecipe/trendy?count=4')
+    const response = await axios.get('http://34.17.45.194:8080/api/TopRecipe/trendy?count=4')
     console.log(response.data); // Check the data structure here
 
     trendyRecipes.value = response.data.map(recipe => ({

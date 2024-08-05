@@ -15,7 +15,7 @@ export function useSearch() {
 
     const query = encodeURIComponent(searchQuery.value);
     try {
-      const response = await fetch(`https://localhost:7036/api/Elastisearch/search?query=${query}`);
+      const response = await fetch(`http://34.17.45.194:8080/api/Elastisearch/search?query=${query}`);
       const data = await response.json();
       searchResults.value = data;
       showResults.value = data.length > 0;

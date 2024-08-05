@@ -31,6 +31,9 @@ const toggleFavorite = debounce((recipeId) => {
 const goToRecipeDetail = () => {
   router.push({ name: 'RecipeDetails', params: { id: props.id } })
 }
+
+// Placeholder image URL
+const placeholderImage = 'https://via.placeholder.com/320x180?text=No+Image+Available'
 </script>
 
 <template>
@@ -40,8 +43,9 @@ const goToRecipeDetail = () => {
   >
     <img
       :src="image"
-      alt="Recipe Image"
+      :alt="name"
       class="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-80"
+      @error="event => event.target.src = placeholderImage"
     />
     <div class="p-4 bg-white">
       <div class="flex flex-wrap justify-between items-center mb-2">

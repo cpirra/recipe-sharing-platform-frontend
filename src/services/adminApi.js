@@ -1,4 +1,4 @@
-const BASE_URL = 'https://localhost:7036/api'
+const BASE_URL = 'http://34.17.45.194:8080/api'
 
 const getToken = () => {
   return localStorage.getItem('auth_token')

@@ -1,7 +1,7 @@
 // src/axiosInstance.js
 import axios from 'axios'
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://localhost:7036/api/'
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://34.17.45.194:8080/api/'
 
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,

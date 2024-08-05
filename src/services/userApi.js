@@ -1,3 +1,5 @@
+// src/services/userApi.js
+
 import axios from 'axios'
 
 const apiClient = axios.create({
@@ -28,8 +30,6 @@ export const removeFavoriteRecipe = (recipeId) => {
   return apiClient.delete(`/FavoriteRecipe/${recipeId}`)
 }
 
-// src/services/userApi.js
-
 export const getFavoriteRecipes = async () => {
   try {
     const response = await apiClient.get('/FavoriteRecipe')
@@ -50,8 +50,6 @@ export const getRecipe = async (recipeId) => {
   }
 }
 
-
-
 export const registerToken = async (token) => {
   try {
     const response = await apiClient.post(
@@ -67,6 +65,17 @@ export const registerToken = async (token) => {
     return response.data
   } catch (error) {
     console.error('Error registering token:', error)
+    throw error
+  }
+}
+
+// Add the new function for fetching notifications
+export const getNotifications = async (userId) => {
+  try {
+    const response = await apiClient.get(`/Notification/user/${userId}`)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching notifications:', error)
     throw error
   }
 }

@@ -1,5 +1,5 @@
 export async function fetchSearchResults(query) {
-    const response = await fetch(`https://localhost:7036/api/Elastisearch/search?query=${query}`);
+    const response = await fetch(`http://34.17.45.194:8080/api/Elastisearch/search?query=${query}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

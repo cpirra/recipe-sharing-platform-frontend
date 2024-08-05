@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://localhost:7036/api';
+const API_BASE_URL = 'http://34.17.45.194:8080/api';
 
 export const categoryService = {
   async getCategoryRecipes(id, page = 1, pageSize = 12) {

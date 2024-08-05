@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-const apiBaseUrl = 'https://localhost:7036/api' // No trailing slash
+const apiBaseUrl = 'http://34.17.45.194:8080/api' // No trailing slash
 
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,

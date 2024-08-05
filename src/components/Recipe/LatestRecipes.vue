@@ -20,7 +20,7 @@ const totalPages = ref(1)
 
 const fetchLatestRecipes = async (page = 1) => {
   try {
-    const response = await axios.get(`https://localhost:7036/api/TopRecipe/leatest?page=${page}&pageSize=${props.limit}`)
+    const response = await axios.get(`http://34.17.45.194:8080/api/TopRecipe/leatest?page=${page}&pageSize=${props.limit}`)
     console.log('Response:', response.data); // Check the data structure here
 
     if (Array.isArray(response.data)) {
