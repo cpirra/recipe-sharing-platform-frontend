@@ -32,8 +32,8 @@ const fetchLatestRecipes = async (page = 1) => {
         cuisines: recipe.cuisines || [], // Ensure cuisines is an array
         description: recipe.description || '' // Add description if needed
       }))
-      // Assuming each page has the same number of items, calculate total pages
-      totalPages.value = Math.ceil(response.data.length / props.limit)
+      // Assuming the total count is provided by the API for pagination calculations
+      totalPages.value = Math.ceil(response.headers['x-total-count'] / props.limit) // Adjust if the total count is in headers
     } else {
       console.error('Unexpected response format:', response.data)
     }
@@ -43,6 +43,7 @@ const fetchLatestRecipes = async (page = 1) => {
 }
 
 const handlePageChange = (page) => {
+  if (page < 1 || page > totalPages.value) return // Prevent invalid page numbers
   currentPage.value = page
   fetchLatestRecipes(page)
 }
@@ -56,11 +57,12 @@ onMounted(() => {
 })
 </script>
 
-
 <template>
   <div>
     <!-- LATEST RECIPE LISTING -->
-    <h1 class="heading-name">Latest Recipes</h1>
+    <RouterLink to="/recipes/latest">
+      <h1 class="heading-name">Latest Recipes</h1>
+    </RouterLink>
     <div class="recipe-list">
       <RecipeCard
         v-for="recipe in latestRecipes"
@@ -74,61 +76,37 @@ onMounted(() => {
       />
     </div>
     <div v-if="props.showPagination" class="pagination">
-      <button 
-        class="btn" 
+      <button class="navigation"
         :disabled="currentPage === 1" 
         @click="handlePageChange(currentPage - 1)"
       >
         Previous
       </button>
-      <button 
-        class="btn" 
+      <button class="navigation"
         :disabled="currentPage === totalPages" 
         @click="handlePageChange(currentPage + 1)"
       >
         Next
       </button>
     </div>
-    <RouterLink to="/recipes/latest">
-      <div class="flex items-center justify-center">
-        <button class="btn">Explore</button>
-      </div>
-    </RouterLink>
   </div>
 </template>
-
-
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
 
-.btn {
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  color: #ffffff;
-  background: linear-gradient(90deg, black 0%, black 100%);
-  padding: 10px 30px;
-  border: solid black 2px;
-  box-shadow: black 4px 5px 47px 4px;
-  border-radius: 50px;
-  transition: 1000ms;
-  transform: translateY(0);
+.navigation{
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 1rem
+}
+.pagination{
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-  text-transform: uppercase;
+  justify-content: flex-end;
+  padding: 2rem;
+  
 }
 
-.btn:hover {
-  transition: 1000ms;
-  padding: 10px 50px;
-  transform: translateY(-2px);
-  background: linear-gradient(90deg, black 0%, black 100%);
-  color: #ffffff;
-  border: solid 2px black;
-}
 
 .recipe-list {
   display: flex;
