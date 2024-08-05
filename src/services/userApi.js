@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: 'https://localhost:7036/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -28,6 +28,8 @@ export const removeFavoriteRecipe = (recipeId) => {
   return apiClient.delete(`/FavoriteRecipe/${recipeId}`)
 }
 
+// src/services/userApi.js
+
 export const getFavoriteRecipes = async () => {
   try {
     const response = await apiClient.get('/FavoriteRecipe')
@@ -37,6 +39,18 @@ export const getFavoriteRecipes = async () => {
     throw error
   }
 }
+
+export const getRecipe = async (recipeId) => {
+  try {
+    const response = await apiClient.get(`/Recipe/${recipeId}`)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching recipe:', error)
+    throw error
+  }
+}
+
+
 
 export const registerToken = async (token) => {
   try {

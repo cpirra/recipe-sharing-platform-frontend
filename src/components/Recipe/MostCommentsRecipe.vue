@@ -9,7 +9,15 @@ const fetchCommentedRecipes = async () => {
   try {
     const response = await axios.get('https://localhost:7036/api/TopRecipe/top-by-reviews?page=1&pageSize=4')
     console.log(response.data); // Check the data structure here
-    commentedRecipes.value = response.data.slice(0, 3) // Limit to 4 recipes
+
+    commentedRecipes.value = response.data.map(recipe => ({
+      id: recipe.id,
+      name: recipe.name,
+      image: recipe.imageUrls.length > 0 ? recipe.imageUrls[0].url : '', // Ensure correct mapping for imageUrls
+      categories: recipe.categories || [], // Ensure categories is an array
+      cuisines: recipe.cuisines || [], // Ensure cuisines is an array
+      description: recipe.description || '' // Add description if needed
+    })).slice(0, 3) // Limit to 3 recipes
   } catch (error) {
     console.error('Error fetching commented recipes:', error)
   }
@@ -32,14 +40,14 @@ onMounted(() => {
         :key="recipe.id"
         :id="recipe.id"
         :name="recipe.name"
-        :image="recipe.imageUrls"
-        :categories="recipe.categories || []"
-        :cuisines="recipe.cuisines || []"
+        :image="recipe.image"
+        :categories="recipe.categories"
+        :cuisines="recipe.cuisines"
         :description="recipe.description"
       />
     </div>
-    
   </div>
 </template>
+
 
 
