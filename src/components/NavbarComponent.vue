@@ -1,71 +1,72 @@
 <script setup>
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
-import { useUserStore } from '@/stores/userStore';
-import { fetchCuisines, fetchCategories } from '@/services/navApi';
-import { useRouter } from 'vue-router';
-import AuthButtons from '@/components/Utils/AuthButtons.vue';
-import { useSearch } from '@/composables/useSearch';
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useUserStore } from '@/stores/userStore'
+import { fetchCuisines, fetchCategories } from '@/services/navApi'
+import { useRouter } from 'vue-router'
+import AuthButtons from '@/components/Utils/AuthButtons.vue'
+import NotificationBell from '@/components/Utils/NotificationBell.vue'
+import { useSearch } from '@/composables/useSearch'
 
-const { searchQuery } = useSearch();
-const userStore = useUserStore();
-const showDropdownCuisines = ref(false);
-const showDropdownCategories = ref(false);
-const showMenu = ref(false);
-const cuisines = ref([]);
-const categoriesData = ref([]);
-const router = useRouter();
+const { searchQuery } = useSearch()
+const userStore = useUserStore()
+const showDropdownCuisines = ref(false)
+const showDropdownCategories = ref(false)
+const showMenu = ref(false)
+const cuisines = ref([])
+const categoriesData = ref([])
+const router = useRouter()
 
 const loadCuisines = async () => {
   try {
-    cuisines.value = await fetchCuisines();
+    cuisines.value = await fetchCuisines()
   } catch (error) {
-    console.error('Error loading cuisines:', error);
+    console.error('Error loading cuisines:', error)
   }
-};
+}
 
 const loadCategories = async () => {
   try {
-    categoriesData.value = await fetchCategories();
+    categoriesData.value = await fetchCategories()
   } catch (error) {
-    console.error('Error loading categories:', error);
+    console.error('Error loading categories:', error)
   }
-};
+}
 
 const toggleDropdownCuisines = (value) => {
-  showDropdownCuisines.value = value;
+  showDropdownCuisines.value = value
   if (showDropdownCuisines.value && cuisines.value.length === 0) {
-    loadCuisines();
+    loadCuisines()
   }
-};
+}
 
 const toggleDropdownCategories = (value) => {
-  showDropdownCategories.value = value;
+  showDropdownCategories.value = value
   if (showDropdownCategories.value && categoriesData.value.length === 0) {
-    loadCategories();
+    loadCategories()
   }
-};
+}
 
 const toggleMenu = () => {
-  showMenu.value = !showMenu.value;
-};
+  showMenu.value = !showMenu.value
+}
 
 const handleSearchInput = () => {
-  router.push({ path: '/', query: { search: searchQuery.value } });
-};
+  router.push({ path: '/', query: { search: searchQuery.value } })
+}
 
 // Periodically check for token changes
-let tokenCheckInterval;
+let tokenCheckInterval
 
 onMounted(() => {
-  userStore.checkToken(); // Initial check
+  userStore.checkToken() // Initial check
   tokenCheckInterval = setInterval(() => {
-    userStore.checkToken();
-  }, 1000); // Check every second
-});
+    userStore.checkToken()
+  }, 1000) // Check every second
+})
 
 onUnmounted(() => {
-  clearInterval(tokenCheckInterval);
-});
+  clearInterval(tokenCheckInterval)
+})
 </script>
 
 <template>
@@ -108,9 +109,10 @@ onUnmounted(() => {
       <AuthButtons />
       <div class="flex flex-col sm:flex-row sm:items-center mt-4 sm:mt-0">
         <div class="user-logged-in flex gap-5 items-center" v-if="userStore.isAuthenticated">
-          <RouterLink :to="{ path: '/profile' }">
-            <img src="../assets/images/profile.png" alt="Profile Icon" class="profile-icon w-10 h-10 rounded-full" />
+          <RouterLink to="/profile">
+            <i class="fa fa-user-circle" style="font-size: 2rem;"></i>
           </RouterLink>
+          <NotificationBell />
           <RouterLink :to="{ path: '/recipes/new' }" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Create Recipe
           </RouterLink>
